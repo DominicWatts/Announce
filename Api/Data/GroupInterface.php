@@ -16,6 +16,7 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const STORE_ID = 'store_id';
     const UPDATED_AT = 'updated_at';
     const NAME = 'name';
+    const CUSTOMER_GROUP_ID = 'customer_group_id';
 
     /**
      * Get group_id
@@ -161,4 +162,17 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Xigen\Announce\Api\Data\GroupInterface
      */
     public function setSortBy($sortBy);
+
+    /**
+     * Get customer_group_id
+     * @return string|null
+     */
+    public function getCustomerGroupId();
+
+    /**
+     * Set customer_group_id
+     * @param string $customerGroupId
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setCustomerGroupId($customerGroupId);    
 }

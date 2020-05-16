@@ -62,6 +62,8 @@ class Group extends \Magento\Framework\Model\AbstractModel
      */
     public function beforeSave()
     {
+        $this->setStoreId(implode($this->getData(GroupInterface::STORE_ID), ','));
+        $this->setCustomerGroupId(implode($this->getData(GroupInterface::CUSTOMER_GROUP_ID), ','));
         $this->setUpdatedAt($this->dateTime->gmtDate());
         if ($this->isObjectNew()) {
             $this->setCreatedAt($this->dateTime->gmtDate());

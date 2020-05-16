@@ -80,7 +80,7 @@
                 <editor>
                     <editorType>text</editorType>
                     <validation>
-                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
                     </validation>
                 </editor>
             </settings>
@@ -104,26 +104,43 @@
                 </editor>
             </settings>
         </column>
-        <column name="status">
+        <column name="sort">
             <settings>
                 <filter>text</filter>
-                <label translate="true">Status</label>
+                <label translate="true">Sort</label>
                 <editor>
                     <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                         <rule name="validate-digits" xsi:type="boolean">true</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+                <editor>
+                    <editorType>select</editorType>
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">false</rule>
                     </validation>
                 </editor>
             </settings>
         </column>
-        <column name="group_id">
+        <column name="group_id" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <filter>text</filter>
+                <options class="Xigen\Announce\Model\Config\Source\Group"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
                 <label translate="true">Group ID</label>
                 <editor>
-                    <editorType>text</editorType>
+                    <editorType>select</editorType>
                     <validation>
-                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
                     </validation>
                 </editor>
             </settings>

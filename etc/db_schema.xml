@@ -8,8 +8,9 @@
         <column comment="CSS Class" length="255" name="cssclass" nullable="true" xsi:type="varchar" />
         <column comment="Name" length="255" name="name" nullable="true" xsi:type="varchar"/>
         <column comment="Status" default="0" name="status" nullable="false" xsi:type="smallint" />
-        <column comment="Store ID" identity="false" name="store_id" nullable="true" xsi:type="int" />
+        <column comment="Store ID" length="255" name="store_id" nullable="true" xsi:type="varchar"/>
         <column comment="Email" length="255" name="email" nullable="true" xsi:type="varchar" />
+        <column comment="Customer Group ID" length="255" default="1" name="customer_group_id" nullable="true" xsi:type="varchar" />
         <column comment="Created At" name="created_at" nullable="false" xsi:type="datetime" />
         <column comment="Updated At" name="updated_at" nullable="false" xsi:type="datetime" />
         <column comment="Sort" identity="false" name="sort" nullable="true" xsi:type="int" />

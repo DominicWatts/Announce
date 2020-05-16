@@ -51,7 +51,7 @@
                 <label translate="true">Name</label>
                 <dataScope>name</dataScope>
                 <validation>
-                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
             </settings>
         </field>
@@ -99,7 +99,7 @@
                 <label translate="true">Group ID</label>
                 <dataScope>group_id</dataScope>
                 <validation>
-                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
             </settings>
         </field>

@@ -126,6 +126,28 @@
                 </validation>
             </settings>
         </field>
+        <field name="customer_group_id" formElement="multiselect" sortOrder="55">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Group</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>number</dataType>
+                <label translate="true">Customer Groups</label>
+                <dataScope>customer_group_id</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Magento\CatalogRule\Model\Rule\CustomerGroupsOptionsProvider"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
         <field formElement="input" name="sort" sortOrder="60">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -154,7 +176,7 @@
                 <label translate="true">Sort By</label>
                 <dataScope>sort_by</dataScope>
                 <validation>
-                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
             </settings>
         </field>
