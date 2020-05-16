@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table comment="Group Table" engine="innodb" name="xigen_announce_group" resource="default">
+        <column comment="Entity Id" identity="true" name="group_id" nullable="false" padding="6" unsigned="true" xsi:type="smallint"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="group_id"/>
+        </constraint>
+        <column comment="CSS Class" length="255" name="cssclass" nullable="true" xsi:type="varchar" />
+        <column comment="Name" length="255" name="name" nullable="true" xsi:type="varchar"/>
+        <column comment="Status" default="0" name="status" nullable="false" xsi:type="smallint" />
+        <column comment="Store ID" identity="false" name="store_id" nullable="true" xsi:type="int" />
+        <column comment="Email" length="255" name="email" nullable="true" xsi:type="varchar" />
+        <column comment="Created At" name="created_at" nullable="false" xsi:type="datetime" />
+        <column comment="Updated At" name="updated_at" nullable="false" xsi:type="datetime" />
+        <column comment="Sort" identity="false" name="sort" nullable="true" xsi:type="int" />
+        <column comment="Sort By" default="1" name="sort_by" nullable="false" xsi:type="smallint" />
+    </table>
+    <table comment="Stats Table" engine="innodb" name="xigen_announce_stats" resource="default">
+        <column comment="Entity Id" identity="true" name="stats_id" nullable="false" padding="6" unsigned="true" xsi:type="smallint"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="stats_id"/>
+        </constraint>
+        <column comment="Group ID" identity="false" name="group_id" nullable="false" xsi:type="int"/>
+        <column comment="Impression Count" default="0" identity="false" name="impressions" nullable="false" xsi:type="int"/>
+        <column comment="First Impression Date" name="first_impression_date" nullable="false" xsi:type="datetime"/>
+        <column comment="Last Impression Date" name="last_impression_date" nullable="false" xsi:type="datetime"/>
+    </table>
+    <table comment="Message Table" engine="innodb" name="xigen_announce_message" resource="default">
+        <column comment="Entity Id" identity="true" name="message_id" nullable="false" padding="6" unsigned="true" xsi:type="smallint"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="message_id"/>
+        </constraint>
+        <column comment="Name" length="255" name="name" nullable="true" xsi:type="varchar"/>
+        <column comment="Content" name="content" nullable="true" xsi:type="text"/>
+        <column comment="CSS Class" length="255" name="cssclass" nullable="true" xsi:type="varchar"/>
+        <column comment="Created At" name="created_at" nullable="false" xsi:type="timestamp"/>
+        <column comment="Updated At" name="updated_at" nullable="true" xsi:type="datetime"/>
+        <column comment="Status" default="0" name="status" nullable="false" xsi:type="smallint"/>
+        <column comment="Group ID" identity="false" name="group_id" nullable="true" xsi:type="int"/>
+        <column comment="Sort" identity="false" name="sort" nullable="true" xsi:type="int" />
+    </table>
+</schema>

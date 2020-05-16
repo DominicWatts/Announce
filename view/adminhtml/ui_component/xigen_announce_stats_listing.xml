@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">xigen_announce_stats_listing.xigen_announce_stats_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>xigen_announce_stats_columns</spinner>
+        <deps>
+            <dep>xigen_announce_stats_listing.xigen_announce_stats_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource component="Magento_Ui/js/grid/provider" name="xigen_announce_stats_listing_data_source">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Xigen_Announce::Stats</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="xigen_announce_stats_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>stats_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="xigen_announce_stats_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>stats_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="stats_id">
+            <settings>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="group_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Group ID</label>
+            </settings>
+        </column>
+        <column name="impressions">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Imrepssions</label>
+            </settings>
+        </column>
+        <column name="first_impression_date">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">First Impression Date</label>
+            </settings>
+        </column>
+        <column name="last_impression_date">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Last Impression Date</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

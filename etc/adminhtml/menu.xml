@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Xigen_Announce::Announce" title="Announcements" module="Xigen_Announce" sortOrder="100" resource="Xigen_Announce::data" parent="Magento_Backend::marketing"/>
+        <add action="xigen_announce/group/index" id="Xigen_Announce::xigen_announce_group" module="Xigen_Announce" parent="Xigen_Announce::Announce" resource="Magento_Backend::content" sortOrder="10" title="Groups"/>
+        <add action="xigen_announce/message/index" id="Xigen_Announce::xigen_announce_message" module="Xigen_Announce" parent="Xigen_Announce::Announce" resource="Magento_Backend::content" sortOrder="20" title="Messages"/>
+        <add action="xigen_announce/stats/index" id="Xigen_Announce::xigen_announce_stats" module="Xigen_Announce" parent="Xigen_Announce::Announce" resource="Magento_Backend::content" sortOrder="30" title="Stats"/>
+    </menu>
+</config>

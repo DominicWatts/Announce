@@ -1,0 +1,34 @@
+{
+    "name": "dominicwatts/announce",
+    "description": "Magento 2 site-wide customer facing announcements",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "email": "dominic@xigen.co.uk",
+            "name": "Dominic Watts"
+        }
+    ],
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "require": {
+        "magento/framework": "*",
+        "magento/module-backend": "*",
+        "magento/module-ui": "*",
+        "php": "~7.0.0||~7.1.0||~7.2.0||~7.3.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Xigen\\Announce\\": ""
+        }
+    }
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Xigen\Announce\Api\GroupRepositoryInterface" type="Xigen\Announce\Model\GroupRepository"/>
+    <preference for="Xigen\Announce\Api\Data\GroupInterface" type="Xigen\Announce\Model\Data\Group"/>
+    <preference for="Xigen\Announce\Api\Data\GroupSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <virtualType name="Xigen\Announce\Model\ResourceModel\Group\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">xigen_announce_group</argument>
+            <argument name="resourceModel" xsi:type="string">Xigen\Announce\Model\ResourceModel\Group\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="xigen_announce_group_listing_data_source" xsi:type="string">Xigen\Announce\Model\ResourceModel\Group\Grid\Collection</item>
+                <item name="xigen_announce_stats_listing_data_source" xsi:type="string">Xigen\Announce\Model\ResourceModel\Stats\Grid\Collection</item>
+                <item name="xigen_announce_message_listing_data_source" xsi:type="string">Xigen\Announce\Model\ResourceModel\Message\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Xigen\Announce\Api\StatsRepositoryInterface" type="Xigen\Announce\Model\StatsRepository"/>
+    <preference for="Xigen\Announce\Api\Data\StatsInterface" type="Xigen\Announce\Model\Data\Stats"/>
+    <preference for="Xigen\Announce\Api\Data\StatsSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <virtualType name="Xigen\Announce\Model\ResourceModel\Stats\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">xigen_announce_stats</argument>
+            <argument name="resourceModel" xsi:type="string">Xigen\Announce\Model\ResourceModel\Stats\Collection</argument>
+        </arguments>
+    </virtualType>
+    <preference for="Xigen\Announce\Api\MessageRepositoryInterface" type="Xigen\Announce\Model\MessageRepository"/>
+    <preference for="Xigen\Announce\Api\Data\MessageInterface" type="Xigen\Announce\Model\Data\Message"/>
+    <preference for="Xigen\Announce\Api\Data\MessageSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <virtualType name="Xigen\Announce\Model\ResourceModel\Message\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">xigen_announce_message</argument>
+            <argument name="resourceModel" xsi:type="string">Xigen\Announce\Model\ResourceModel\Message\Collection</argument>
+        </arguments>
+    </virtualType>
+</config>

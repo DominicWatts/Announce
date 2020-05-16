@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Xigen_Announce::Group" sortOrder="10" title="Group">
+                    <resource id="Xigen_Announce::Group_save" sortOrder="10" title="Save Group"/>
+                    <resource id="Xigen_Announce::Group_delete" sortOrder="20" title="Delete Group"/>
+                    <resource id="Xigen_Announce::Group_update" sortOrder="30" title="Update Group"/>
+                    <resource id="Xigen_Announce::Group_view" sortOrder="40" title="View Group"/>
+                </resource>
+                <resource id="Xigen_Announce::Stats" sortOrder="10" title="Stats">
+                    <resource id="Xigen_Announce::Stats_save" sortOrder="10" title="Save Stats"/>
+                    <resource id="Xigen_Announce::Stats_delete" sortOrder="20" title="Delete Stats"/>
+                    <resource id="Xigen_Announce::Stats_update" sortOrder="30" title="Update Stats"/>
+                    <resource id="Xigen_Announce::Stats_view" sortOrder="40" title="View Stats"/>
+                </resource>
+                <resource id="Xigen_Announce::Message" sortOrder="10" title="Message">
+                    <resource id="Xigen_Announce::Message_save" sortOrder="10" title="Save Message"/>
+                    <resource id="Xigen_Announce::Message_delete" sortOrder="20" title="Delete Message"/>
+                    <resource id="Xigen_Announce::Message_update" sortOrder="30" title="Update Message"/>
+                    <resource id="Xigen_Announce::Message_view" sortOrder="40" title="View Message"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
