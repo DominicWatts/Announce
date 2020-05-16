@@ -73,6 +73,32 @@
                 <label translate="true">ID</label>
             </settings>
         </column>
+        <column name="name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="position" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Xigen\Announce\Model\Config\Source\Position"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Position</label>
+                <editor>
+                    <editorType>select</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
         <column name="cssclass">
             <settings>
                 <filter>text</filter>
@@ -82,18 +108,6 @@
                     <validation>
                         <rule name="required-entry" xsi:type="boolean">false</rule>
                         <rule name="validate-identifier" xsi:type="boolean">true</rule>
-                    </validation>
-                </editor>
-            </settings>
-        </column>
-        <column name="name">
-            <settings>
-                <filter>text</filter>
-                <label translate="true">Name</label>
-                <editor>
-                    <editorType>text</editorType>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
                     </validation>
                 </editor>
             </settings>

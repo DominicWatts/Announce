@@ -236,4 +236,23 @@ class Group extends \Magento\Framework\Api\AbstractExtensibleObject implements G
     {
         return $this->setData(self::CUSTOMER_GROUP_ID, $customerGroupId);
     }
+
+    /**
+     * Get position
+     * @return string|null
+     */
+    public function getPosition()
+    {
+        return $this->_get(self::POSITION);
+    }
+
+    /**
+     * Set position
+     * @param string $position
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setPosition($position)
+    {
+        return $this->setData(self::POSITION, $position);
+    }
 }

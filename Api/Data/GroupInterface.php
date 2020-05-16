@@ -17,6 +17,7 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const UPDATED_AT = 'updated_at';
     const NAME = 'name';
     const CUSTOMER_GROUP_ID = 'customer_group_id';
+    const POSITION = 'position';
 
     /**
      * Get group_id
@@ -174,5 +175,18 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @param string $customerGroupId
      * @return \Xigen\Announce\Api\Data\GroupInterface
      */
-    public function setCustomerGroupId($customerGroupId);    
+    public function setCustomerGroupId($customerGroupId);
+    
+    /**
+     * Get position
+     * @return string|null
+     */
+    public function getPosition();
+
+    /**
+     * Set position
+     * @param string $position
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setPosition($position);
 }
