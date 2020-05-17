@@ -45,6 +45,7 @@ I use magento registry to restrict impatch of queries.
 ### Todo
 
   - Custom placement logic / help doc
+  - Contact Us placement
   - Random message sort
   - Escape phtml
   - Catch impressions
