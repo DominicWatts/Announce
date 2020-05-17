@@ -16,7 +16,7 @@ With marketing section in backend configure message groups with the following:
     * Required
 
   - Name *
-  - Position in site )
+  - Position in site
   - CSS class
   - Status * 
   - Store View * 
