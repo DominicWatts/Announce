@@ -114,7 +114,7 @@
         </column>
         <column name="status" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                <options class="Xigen\Announce\Model\Config\Source\Yesno"/>
                 <filter>select</filter>
                 <dataType>select</dataType>
                 <label translate="true">Status</label>
@@ -144,6 +144,32 @@
                         <rule name="validate-email" xsi:type="boolean">true</rule>
                     </validation>
                 </editor>
+            </settings>
+        </column>
+        <column name="date_from" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Date From</label>
+                <editor>
+					<editorType>date</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+            </settings>
+        </column>
+        <column name="date_to" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Date To</label>
+                <editor>
+					<editorType>date</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
             </settings>
         </column>
         <column name="sort">

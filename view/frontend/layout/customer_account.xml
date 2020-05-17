@@ -2,19 +2,19 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.customer.content.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.customer.content.top" before="-">
             	<action method="setPosition">
             		<argument name="position" xsi:type="string">customer-content-top</argument>
             	</action>
             </block>
         </referenceContainer>
         <referenceContainer name="sidebar.main">
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.sidebar.main.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.sidebar.main.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">customer-sidebar-main-top</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.sidebar.main.bottom">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.sidebar.main.bottom">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">customer-sidebar-main-bottom</argument>
                 </action>

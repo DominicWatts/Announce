@@ -18,6 +18,8 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const NAME = 'name';
     const CUSTOMER_GROUP_ID = 'customer_group_id';
     const POSITION = 'position';
+    const DATE_FROM = 'date_from';
+    const DATE_TO = 'date_to';
 
     /**
      * Get group_id
@@ -176,7 +178,7 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Xigen\Announce\Api\Data\GroupInterface
      */
     public function setCustomerGroupId($customerGroupId);
-    
+
     /**
      * Get position
      * @return string|null
@@ -189,4 +191,30 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Xigen\Announce\Api\Data\GroupInterface
      */
     public function setPosition($position);
+
+    /**
+     * Get date_from
+     * @return string|null
+     */
+    public function getDateFrom();
+
+    /**
+     * Set date_from
+     * @param string $dateFrom
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setDateFrom($dateFrom);
+
+    /**
+     * Get date_to
+     * @return string|null
+     */
+    public function getDateTo();
+
+    /**
+     * Set date_to
+     * @param string $dateTo
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setDateTo($dateTo);
 }

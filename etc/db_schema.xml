@@ -12,6 +12,8 @@
         <column comment="Store ID" length="255" name="store_id" nullable="true" xsi:type="varchar"/>
         <column comment="Email" length="255" name="email" nullable="true" xsi:type="varchar" />
         <column comment="Customer Group ID" length="255" default="1" name="customer_group_id" nullable="true" xsi:type="varchar" />
+        <column comment="Start Date" name="date_from" xsi:type="date" />
+        <column comment="End Date" name="date_to" xsi:type="date" />
         <column comment="Created At" name="created_at" nullable="false" xsi:type="datetime" />
         <column comment="Updated At" name="updated_at" nullable="false" xsi:type="datetime" />
         <column comment="Sort" identity="false" name="sort" nullable="true" xsi:type="int" />

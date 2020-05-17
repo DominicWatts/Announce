@@ -2,92 +2,92 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="right">
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.sidebar.right.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.sidebar.right.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-sidebar-right-top</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.sidebar.right.bottom">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.sidebar.right.bottom">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-sidebar-right-bottom</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.product.sidebar.right.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.product.sidebar.right.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">product-sidebar-right-top</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.product.sidebar.right.bottom">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.product.sidebar.right.bottom">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">product-sidebar-right-bottom</argument>
                 </action>
             </block>
         </referenceContainer>
         <referenceContainer name="left">
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.sidebar.left.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.sidebar.left.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-sidebar-left-top</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.sidebar.left.bottom">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.sidebar.left.bottom">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-sidebar-left-bottom</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.product.sidebar.left.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.product.sidebar.left.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">product-sidebar-left-top</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.product.sidebar.left.bottom">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.product.sidebar.left.bottom">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">product-sidebar-left-bottom</argument>
                 </action>
             </block>
         </referenceContainer>
         <referenceContainer name="before.body.end">
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.page.bottom">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.page.bottom">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-page-bottom</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.product.page.bottom">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.product.page.bottom">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">product-page-bottom</argument>
                 </action>
             </block>
         </referenceContainer>
         <referenceContainer name="content">
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.content.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.content.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-content-top</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.product.content.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.product.content.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">product-content-top</argument>
                 </action>
             </block>
         </referenceContainer>
         <referenceBlock name="header.container">
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.menu.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.menu.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-menu-top</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.product.menu.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.product.menu.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">product-menu-top</argument>
                 </action>
             </block>
         </referenceBlock>
         <referenceBlock name="page.top">
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.menu.bottom" >
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.menu.bottom" >
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-menu-bottom</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.product.menu.bottom" >
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.product.menu.bottom" >
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">product-menu-bottom</argument>
                 </action>

@@ -5,7 +5,7 @@ namespace Xigen\Announce\Model\Config\Source;
 use Magento\Framework\Data\OptionSourceInterface;
 use Xigen\Announce\Helper\Data;
 
-class Sortby implements OptionSourceInterface
+class Yesno implements OptionSourceInterface
 {
     /**
      * Options getter
@@ -14,8 +14,8 @@ class Sortby implements OptionSourceInterface
     public function toOptionArray()
     {
         return [
-            ['value' => Data::ORDERLY, 'label' => __('Orderly')],
-            ['value' => Data::RANDOM, 'label' => __('Random')]
+            ['value' => Data::ENABLED, 'label' => __('Yes')],
+            ['value' => Data::DISABLED, 'label' => __('No')]
         ];
     }
 
@@ -26,8 +26,8 @@ class Sortby implements OptionSourceInterface
     public function toArray()
     {
         return [
-            Data::ORDERLY => __('Orderly'),
-            Data::RANDOM => __('Random')
+            Data::DISABLED => __('No'),
+            Data::ENABLED => __('Yes')
         ];
     }
 }

@@ -2,72 +2,35 @@
 
 namespace Xigen\Announce\Model\Config\Source;
 
-use Xigen\Announce\Api\GroupRepositoryInterface;
-use Xigen\Announce\Api\Data\GroupInterfaceFactory;
+use Magento\Framework\Data\OptionSourceInterface;
 use Xigen\Announce\Api\Data\GroupInterface;
-use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\Api\FilterBuilder;
-use Magento\Framework\Api\SortOrderFactory;
-use Magento\Framework\Api\SortOrder;
+use Xigen\Announce\Helper\Fetch;
 
-class Group implements \Magento\Framework\Option\ArrayInterface
+class Group implements OptionSourceInterface
 {
     /**
-     * @var GroupRepositoryInterface
+     * @var Fetch
      */
-    protected $groupRepositoryInterface;
+    protected $fetchHelper;
 
     /**
-     * @var GroupInterfaceFactory
-     */
-    protected $groupInterfaceFactory;
-
-    /**
-     * @var SearchCriteriaBuilder
-     */
-    private $searchCriteriaBuilder;
-
-    /**
-     * @var FilterBuilder
-     */
-    private $filterBuilder;
-
-    /**
-     * @var \Magento\Framework\Api\SortOrderFactory
-     */
-    private $sortOrderFactory;
-
-    /**
-     * @param ProductRepositoryInterface $productRepositoryInterface
+     * Group constructor.
+     * @param Fetch $fetchHelper
      */
     public function __construct(
-        GroupRepositoryInterface $groupRepositoryInterface,
-        GroupInterfaceFactory $groupInterfaceFactory,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        FilterBuilder $filterBuilder,
-        SortOrderFactory $sortOrderFactory
+        Fetch $fetchHelper
     ) {
-        $this->groupRepositoryInterface = $groupRepositoryInterface;
-        $this->groupInterfaceFactory = $groupInterfaceFactory;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->filterBuilder = $filterBuilder;
-        $this->sortOrderFactory = $sortOrderFactory;
+        $this->fetchHelper = $fetchHelper;
     }
 
     /**
-     * Get enabled groups - sort by name
-     * @return array
+     * @return GroupInterface[]
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     private function getGroups()
     {
-        $this->searchCriteriaBuilder->addFilter(GroupInterface::STATUS, [1], 'eq');
-        $sortOrder = $this->sortOrderFactory
-            ->create()
-            ->setField(GroupInterface::NAME)
-            ->setDirection(SortOrder::SORT_ASC);
-        $this->searchCriteriaBuilder->setSortOrders([$sortOrder]);
-        $searchCriteria = $this->searchCriteriaBuilder->create();
-        return $this->groupRepositoryInterface->getList($searchCriteria)->getItems();
+        return $this->fetchHelper->getGroups();
     }
 
     /**
@@ -76,7 +39,6 @@ class Group implements \Magento\Framework\Option\ArrayInterface
      */
     public function toOptionArray()
     {
-        
         $return = [
             [
                 'value' => '',

@@ -2,7 +2,9 @@
 
 namespace Xigen\Announce\Model\Config\Source;
 
-class Position implements \Magento\Framework\Option\ArrayInterface
+use Magento\Framework\Data\OptionSourceInterface;
+
+class Position implements OptionSourceInterface
 {
     /**
      * Options getter
@@ -28,7 +30,7 @@ class Position implements \Magento\Framework\Option\ArrayInterface
                 ],
             ],
             [
-                'label' => __('General (will be disaplyed on all pages)'),
+                'label' => __('General (will be displayed on all pages)'),
                 'value' => [
                     ['value' => 'sidebar-right-top', 'label' => __('Sidebar-Top-Right')],
                     ['value' => 'sidebar-right-bottom', 'label' => __('Sidebar-Bottom-Right')],
@@ -83,8 +85,8 @@ class Position implements \Magento\Framework\Option\ArrayInterface
                 'label' => __('Customer'),
                 'value' => [
                     ['value' => 'customer-content-top', 'label' => __('Customer-Content-Top')],
-                    ['value' => 'customer-sidebar-main-top', 'label' => __('Customer-Siderbar-Main-Top')],
-                    ['value' => 'customer-sidebar-main-bottom', 'label' => __('Customer-Siderbar-Main-Bottom')],
+                    ['value' => 'customer-sidebar-main-top', 'label' => __('Customer-Sidebar-Main-Top')],
+                    ['value' => 'customer-sidebar-main-bottom', 'label' => __('Customer-Sidebar-Main-Bottom')],
                 ],
             ],
             [
@@ -109,7 +111,7 @@ class Position implements \Magento\Framework\Option\ArrayInterface
             'custom' => __('Custom'),
             // Popular positions
             'cms-page-content-top' => __('Homepage-Content-Top'),
-            // General (will be disaplyed on all pages)
+            // General (will be displayed on all pages)
             'sidebar-right-top' => __('Sidebar-Top-Right'),
             'sidebar-right-bottom' => __('Sidebar-Bottom-Right'),
             'sidebar-left-top' => __('Sidebar-Top-Left'),
@@ -129,15 +131,14 @@ class Position implements \Magento\Framework\Option\ArrayInterface
             'catalog-page-bottom' => __('Catalog-Page-Bottom'),
             'catalog-columns-top' => __('Catalog-Columns-Top'),
             // Category only
-            'category-sidebar-left-top' => __('Category-Sidebar-Top-Right'),
-            'category-sidebar-left-bottom' => __('Category-Sidebar-Bottom-Right'),
-            'category-sidebar-left-top' => __('ategory-Sidebar-Top-Left'),
+            'category-sidebar-right-top' => __('Category-Sidebar-Top-Right'),
+            'category-sidebar-right-bottom' => __('Category-Sidebar-Bottom-Right'),
+            'category-sidebar-left-top' => __('Category-Sidebar-Top-Left'),
             'category-sidebar-left-bottom' => __('Category-Sidebar-Bottom-Left'),
-            'category-content-top' => __('Catalog-Page-Bottom'),
-            'category-menu-bottom' => __('Catalog-Page-Bottom'),
-            'category-page-bottom' => __('Catalog-Page-Bottom'),
-            'catalog-page-bottom' => __('Catalog-Page-Bottom'),
-            'catalog-page-bottom' => __('Catalog-Page-Bottom'),
+            'category-content-top' => __('Category-Content-Top'),
+            'category-menu-top' => __('Category-Menu-Top'),
+            'category-menu-bottom' => __('Category-Menu-Bottom'),
+            'category-page-bottom' => __('Category-Page-Bottom'),
             // Product only
             'product-sidebar-right-top' => __('Product-Sidebar-Top-Right'),
             'product-sidebar-right-bottom' => __('Product-Sidebar-Bottom-Right'),
@@ -148,8 +149,8 @@ class Position implements \Magento\Framework\Option\ArrayInterface
             'product-page-bottom' => __('Product-Page-Bottom'),
             // Customer
             'customer-content-top'=> __('Customer-Content-Top'),
-            'customer-sidebar-main-top' => __('Customer-Siderbar-Main-Top'),
-            'customer-sidebar-main-bottom' => __('Customer-Siderbar-Main-Bottom'),
+            'customer-sidebar-main-top' => __('Customer-Sidebar-Main-Top'),
+            'customer-sidebar-main-bottom' => __('Customer-Sidebar-Main-Bottom'),
             // Cart & Checkout
             'cart-content-top' => __('Cart-Content-Top'),
             'checkout-content-top' => __('Checkout-Content-Top'),

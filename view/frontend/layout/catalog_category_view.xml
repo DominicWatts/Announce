@@ -2,7 +2,7 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="columns.top">
-    		<block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.columns.top" before="-">
+    		<block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.columns.top" before="-">
     			<action method="setPosition">
     				<argument name="position" xsi:type="string">catalog-columns-top</argument>
     			</action>
@@ -12,7 +12,7 @@
     		</block>
         </referenceContainer>
         <referenceContainer name="sidebar.main">
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.sidebar.main.top" before="-">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.sidebar.main.top" before="-">
                 <action method="setPosition">
     				<argument name="position" xsi:type="string">catalog-sidebar-right-top</argument>
     			</action>
@@ -20,7 +20,7 @@
                     <argument name="position" xsi:type="string">category-sidebar-right-top</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.sidebar.main.bottom">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.sidebar.main.bottom">
                 <action method="setPosition">
     				<argument name="position" xsi:type="string">catalog-sidebar-right-bottom</argument>
     			</action>
@@ -30,7 +30,7 @@
             </block>
         </referenceContainer>
     	<referenceContainer name="right">
-    		<block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.sidebar.right.top" before="-">
+    		<block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.sidebar.right.top" before="-">
     			<action method="setPosition">
     				<argument name="position" xsi:type="string">catalog-sidebar-right-top</argument>
     			</action>
@@ -38,7 +38,7 @@
                     <argument name="position" xsi:type="string">category-sidebar-right-top</argument>
                 </action>
     		</block>
-    		<block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.sidebar.right.bottom">
+    		<block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.sidebar.right.bottom">
     			<action method="setPosition">
     				<argument name="position" xsi:type="string">catalog-sidebar-right-bottom</argument>
     			</action>
@@ -48,7 +48,7 @@
     		</block>
     	</referenceContainer>
     	<referenceContainer name="left">
-    		<block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.sidebar.left.top" before="-">
+    		<block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.sidebar.left.top" before="-">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-sidebar-left-top</argument>
                 </action>
@@ -56,7 +56,7 @@
                     <argument name="position" xsi:type="string">category-sidebar-left-top</argument>
                 </action>
             </block>
-            <block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.sidebar.left.bottom">
+            <block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.sidebar.left.bottom">
                 <action method="setPosition">
                     <argument name="position" xsi:type="string">catalog-sidebar-left-bottom</argument>
                 </action>
@@ -66,7 +66,7 @@
             </block>
     	</referenceContainer>
 		<referenceContainer name="before.body.end">
-			<block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.page.bottom">
+			<block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.page.bottom">
 				<action method="setPosition">
 					<argument name="position" xsi:type="string">catalog-page-bottom</argument>
 				</action>
@@ -76,7 +76,7 @@
 			</block>
 		</referenceContainer>
     	<referenceContainer name="content">
-    		<block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.content.top" before="-">
+    		<block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.content.top" before="-">
     			<action method="setPosition">
     				<argument name="position" xsi:type="string">catalog-content-top</argument>
     			</action>
@@ -86,7 +86,7 @@
     		</block>
     	</referenceContainer>
     	<referenceBlock name="header.container">
-    		<block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.menu.top"  before="-" >
+    		<block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.menu.top"  before="-" >
     			<action method="setPosition">
     				<argument name="position" xsi:type="string">catalog-menu-top</argument>
     			</action>
@@ -96,7 +96,7 @@
     		</block>
     	</referenceBlock>
     	<referenceBlock name="page.top">
-    		<block class="Xigen\Announce\Block\Annoucement" name="annouce.catalog.menu.bottom" >
+    		<block class="Xigen\Announce\Block\Announcement" name="annouce.catalog.menu.bottom" >
     			<action method="setPosition">
     				<argument name="position" xsi:type="string">catalog-menu-bottom</argument>
     			</action>

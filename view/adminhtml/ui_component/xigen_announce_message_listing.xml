@@ -119,7 +119,7 @@
         </column>
         <column name="status" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                <options class="Xigen\Announce\Model\Config\Source\Yesno"/>
                 <filter>select</filter>
                 <dataType>select</dataType>
                 <label translate="true">Status</label>

@@ -255,4 +255,42 @@ class Group extends \Magento\Framework\Api\AbstractExtensibleObject implements G
     {
         return $this->setData(self::POSITION, $position);
     }
+
+    /**
+     * Get date_from
+     * @return string|null
+     */
+    public function getDateFrom()
+    {
+        return $this->_get(self::DATE_FROM);
+    }
+
+    /**
+     * Set date_from
+     * @param string $dateFrom
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setDateFrom($dateFrom)
+    {
+        return $this->setData(self::DATE_FROM, $dateFrom);
+    }
+
+    /**
+     * Get date_to
+     * @return string|null
+     */
+    public function getDateTo()
+    {
+        return $this->_get(self::DATE_TO);
+    }
+
+    /**
+     * Set date_to
+     * @param string $dateTo
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setDateTo($dateTo)
+    {
+        return $this->setData(self::DATE_TO, $dateTo);
+    }
 }

@@ -1,6 +1,12 @@
-phtml
-
 <?php
-\Symfony\Component\VarDumper\VarDumper::dump($block->getPosition()); 
-\Symfony\Component\VarDumper\VarDumper::dump($block->getCategoryPosition()); 
+/**
+ * @author Dominic <dominic@xigen.co.uk>
+ */
+
+$helper = $block->getFetchHelper();
 ?>
+html
+<?php
+\Symfony\Component\VarDumper\VarDumper::dump($block->getPosition());
+\Symfony\Component\VarDumper\VarDumper::dump($block->getCategoryPosition());
+\Symfony\Component\VarDumper\VarDumper::dump($helper->getGroupId());

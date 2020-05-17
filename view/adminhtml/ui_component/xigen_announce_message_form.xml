@@ -105,7 +105,7 @@
         </field>
         <field formElement="select" name="status" sortOrder="50">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="options" xsi:type="object">Xigen\Announce\Model\Config\Source\Yesno</item>
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Message</item>
                 </item>
