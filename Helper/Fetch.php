@@ -135,11 +135,12 @@ class Fetch extends AbstractHelper
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getMessageByGroup($groupId = null)
+    public function getMessageByGroup($group)
     {
-        if ($groupId) {
+        if ($group) {
             $this->searchCriteriaBuilder->addFilter(MessageInterface::STATUS, [Data::ENABLED], 'eq');
-            $this->searchCriteriaBuilder->addFilter(MessageInterface::GROUP_ID, [$groupId], 'eq');
+            $this->searchCriteriaBuilder->addFilter(MessageInterface::GROUP_ID, [$group->getGroupId()], 'eq');
+            // @todo factor group sort by            
             $sortBySort = $this->sortOrderFactory
                 ->create()
                 ->setField(MessageInterface::SORT)
@@ -174,6 +175,32 @@ class Fetch extends AbstractHelper
     }
 
     /**
+     * Get groys by group ID group
+     * @param array $groupId
+     * @return GroupInterface[]
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getGroupsById($groupId = [])
+    {
+        if (count($groupId)) {
+            $this->searchCriteriaBuilder->addFilter(GroupInterface::GROUP_ID, $groupId, 'in');
+            $sortBySort = $this->sortOrderFactory
+                ->create()
+                ->setField(GroupInterface::SORT)
+                ->setDirection(SortOrder::SORT_ASC);
+            $sortByName = $this->sortOrderFactory
+                ->create()
+                ->setField(GroupInterface::NAME)
+                ->setDirection(SortOrder::SORT_ASC);
+            $this->searchCriteriaBuilder->setSortOrders([$sortBySort, $sortByName]);
+            $searchCriteria = $this->searchCriteriaBuilder->create();
+            return $this->groupRepositoryInterface->getList($searchCriteria)->getItems();
+        }
+        return [];
+    }
+
+    /**
      * Get applicable group IDs
      * @return array|null
      */
@@ -201,6 +228,7 @@ class Fetch extends AbstractHelper
         }
 
         $this->registry->register('announce_group_id', $groupId);
+        return $groupId;
     }
 
     /**
@@ -315,15 +343,24 @@ class Fetch extends AbstractHelper
     }
 
     /**
-     * Filter collection by position code
-     * @param GroupCollectionFactory$collection
-     * @param string $positionCode
-     * @return GroupCollectionFactory
+     * Get group ID by position
+     * @param array $positionCode
+     * @return array
      */
-    public function getFilterForPosition($collection, $positionCode)
+    public function getGroupIdByPosition($positionCode = [])
     {
-        $collection->addFieldToFilter(GroupInterface::POSITION, ['eq' => $positionCode]);
-        return $collection;
+        if (!empty($positionCode)) {
+            $groupId = $this->getGroupId();
+            $collection = $this->groupCollectionFactory
+                ->create()
+                ->addFieldToFilter(GroupInterface::GROUP_ID, ['in' => $groupId])
+                ->addFieldToFilter(GroupInterface::POSITION, ['in' => $positionCode])
+                ->setOrder(GroupInterface::SORT, 'ASC');
+            if ($collection->getSize() > 0) {
+                return $collection->getAllIds();
+            }
+        }
+        return [];
     }
 
     /**
@@ -341,5 +378,21 @@ class Fetch extends AbstractHelper
             }
         }
         return false;
+    }
+
+    /**
+     * Get groups for blocks factoring session data
+     * @param array $positionCode
+     * @return GroupInterface[]|null
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getGroupsForBlock($positionCode = [])
+    {
+        if (!empty($positionCode)) {
+            $groupId = $this->getGroupIdByPosition($positionCode);
+            return $this->getGroupsById($groupId);
+        }
+        return null;
     }
 }

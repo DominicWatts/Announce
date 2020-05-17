@@ -15,4 +15,10 @@ class Data extends AbstractHelper
     const DISABLED = 0;
 
     const ALL_STORE_VIEWS = 0;
+
+    const GROUP = 'group';
+    const MESSAGE = 'message';
+
+    const OPENING_TAG = 'start';
+    const CLOSING_TAG = 'end';
 }

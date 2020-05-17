@@ -1,12 +1,28 @@
 <?php
 /**
  * @author Dominic <dominic@xigen.co.uk>
+ * @todo Escape output, catch impressions
  */
-
+use Xigen\Announce\Helper\Data;
 $helper = $block->getFetchHelper();
 ?>
-html
-<?php
-\Symfony\Component\VarDumper\VarDumper::dump($block->getPosition());
-\Symfony\Component\VarDumper\VarDumper::dump($block->getCategoryPosition());
-\Symfony\Component\VarDumper\VarDumper::dump($helper->getGroupId());
+<?= /* @noEscape */ $block->getGeneratedComment(Data::OPENING_TAG); ?>
+<?php if ($groups = $helper->getGroupsForBlock([$block->getPosition(), $block->getCategoryPosition()])): ?>
+    <?php foreach ($groups as $group): ?>
+        <div id="<?= /* @noEscape */ $block->getGeneratedBlockId($group, DATA::GROUP) ?>"
+             class="<?= /* @noEscape */ $block->getGenerateBlockClass($group, DATA::GROUP) ?>">
+            <?php if ($messages = $helper->getMessageByGroup($group)): ?>
+                <?php foreach ($messages as $message): ?>
+                    <div id="<?= /* @noEscape */ $block->getGeneratedBlockId($message, DATA::MESSAGE) ?>"
+                        class="<?= /* @noEscape */ $block->getGenerateBlockClass($message, DATA::MESSAGE) ?>">
+                        <?= /* @noEscape */ $block->stripTags(
+                            $message->getContent(),
+                            '<p><ul><li><table><td><tr><strong>'
+                        ); ?>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>                
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+<?= /* @noEscape */ $block->getGeneratedComment(Data::CLOSING_TAG); ?>
