@@ -1,5 +1,12 @@
 # Announce
 
+![phpcs](https://github.com/DominicWatts/Announce/workflows/phpcs/badge.svg)
+
+![PHPCompatibility](https://github.com/DominicWatts/Announce/workflows/PHPCompatibility/badge.svg)
+
+![PHPStan](https://github.com/DominicWatts/Announce/workflows/PHPStan/badge.svg)
+
+
 ## Magento 2 site-wide customer facing announcements
 
 Easily add personalised customer messages to your magento store. Customised greetings, discounts, upsells and more. Find the comment for the placeholder code in markup and go from there.
