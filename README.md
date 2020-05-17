@@ -46,6 +46,9 @@ I use magento registry to restrict impatch of queries.
 
   - Custom placement logic / help doc
   - Contact Us placement
+  - Wysiwyg template filter
+  - Group visible only on selected category
+  - Group visible only on selected product
   - Random message sort
   - Escape phtml
   - Catch impressions
