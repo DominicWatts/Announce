@@ -140,7 +140,7 @@ class Fetch extends AbstractHelper
         if ($group) {
             $this->searchCriteriaBuilder->addFilter(MessageInterface::STATUS, [Data::ENABLED], 'eq');
             $this->searchCriteriaBuilder->addFilter(MessageInterface::GROUP_ID, [$group->getGroupId()], 'eq');
-            // @todo factor group sort by            
+            // @todo factor group sort by
             $sortBySort = $this->sortOrderFactory
                 ->create()
                 ->setField(MessageInterface::SORT)
