@@ -3,9 +3,9 @@
     <body>
         <referenceContainer name="content">
             <block class="Xigen\Announce\Block\Announcement" name="annouce.cart.content.top" before="-">
-            	<action method="setPosition">
-            		<argument name="position" xsi:type="string">cart-content-top</argument>
-            	</action>
+                <action method="setPosition">
+                    <argument name="position" xsi:type="string">cart-content-top</argument>
+                </action>
             </block>
         </referenceContainer>
     </body>
