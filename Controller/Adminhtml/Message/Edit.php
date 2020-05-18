@@ -68,7 +68,7 @@ class Edit extends \Xigen\Announce\Controller\Adminhtml\Message
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Messages'));
         $resultPage->getConfig()->getTitle()->prepend(
-            $id ? __('Edit Message %1', $id) : __('New Message')
+            $id ? __('Edit Message [%1] %2', $id, $model->getName()) : __('New Message')
         );
         return $resultPage;
     }

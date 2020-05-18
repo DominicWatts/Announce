@@ -70,7 +70,7 @@ class Edit extends \Xigen\Announce\Controller\Adminhtml\Group
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Groups'));
         $resultPage->getConfig()->getTitle()->prepend(
-            $id ? __('Edit Group %1', $id) : __('New Group')
+            $id ? __('Edit Group [%1] %2', $id, $model->getName()) : __('New Group')
         );
         return $resultPage;
     }

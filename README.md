@@ -45,7 +45,7 @@ I use magento registry to restrict impatch of queries.
 ### Todo
 
   - Custom placement logic / help doc
-  - Contact Us placement
+  - ~~Contact Us placement~~
   - Wysiwyg template filter
   - Group visible only on selected category
   - Group visible only on selected product
@@ -69,3 +69,11 @@ I use magento registry to restrict impatch of queries.
 ## Useage Instructions
 
     Admin > Marketing > Announcements
+
+![Group Grid](https://i.snipboard.io/CfTWVw.jpg)
+
+![Group Page](https://i.snipboard.io/4KxMJl.jpg)
+
+![Message Page](https://i.snipboard.io/WtZTbS.jpg)
+
+![Contact Us](https://i.snipboard.io/1AE5ax.jpg)
