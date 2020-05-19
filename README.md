@@ -47,6 +47,7 @@ I use magento registry to restrict impatch of queries.
   - ~~Custom placement logic / help doc~~
   - ~~Contact Us placement~~
   - ~~Wysiwyg template filter~~
+  - Admin group message selection grid
   - Group visible only on selected category
   - Group visible only on selected product
   - Random message sort
@@ -54,6 +55,7 @@ I use magento registry to restrict impatch of queries.
   - Catch impressions
   - Extension own cache
   - Private content (hole punch cache)
+  - [Long term] Banner manager
   - [Long term] Product carousels for upsells/cross sells/related
 
 ## Install Instructions
