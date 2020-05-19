@@ -3,10 +3,17 @@
     <body>
         <referenceContainer name="content">
             <block class="Xigen\Announce\Block\Announcement" name="annouce.contact.content.top" before="-">
-            	<action method="setPosition">
-            		<argument name="position" xsi:type="string">contact-content-top</argument>
-            	</action>
+                <action method="setPosition">
+                    <argument name="position" xsi:type="string">contact-content-top</argument>
+                </action>
             </block>
+            <referenceContainer name="form.additional.info" as="form_additional_info">
+                <block class="Xigen\Announce\Block\Announcement" name="annouce.contact.content.form">
+                    <action method="setPosition">
+                        <argument name="position" xsi:type="string">contact-content-form</argument>
+                    </action>
+                </block>
+            </referenceContainer>
         </referenceContainer>
     </body>
 </page>

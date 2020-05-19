@@ -5,5 +5,6 @@
         <add action="xigen_announce/group/index" id="Xigen_Announce::xigen_announce_group" module="Xigen_Announce" parent="Xigen_Announce::Announce" resource="Magento_Backend::content" sortOrder="10" title="Groups"/>
         <add action="xigen_announce/message/index" id="Xigen_Announce::xigen_announce_message" module="Xigen_Announce" parent="Xigen_Announce::Announce" resource="Magento_Backend::content" sortOrder="20" title="Messages"/>
         <add action="xigen_announce/stats/index" id="Xigen_Announce::xigen_announce_stats" module="Xigen_Announce" parent="Xigen_Announce::Announce" resource="Magento_Backend::content" sortOrder="30" title="Stats"/>
+        <add action="xigen_announce/help/index" id="Xigen_Announce::xigen_announce_help" module="Xigen_Announce" parent="Xigen_Announce::Announce" resource="Magento_Backend::content" sortOrder="40" title="Help"/>
     </menu>
 </config>

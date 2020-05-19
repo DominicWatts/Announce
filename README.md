@@ -44,13 +44,13 @@ I use magento registry to restrict impatch of queries.
 
 ### Todo
 
-  - Custom placement logic / help doc
+  - ~~Custom placement logic / help doc~~
   - ~~Contact Us placement~~
-  - Wysiwyg template filter
+  - ~~Wysiwyg template filter~~
   - Group visible only on selected category
   - Group visible only on selected product
   - Random message sort
-  - Escape phtml
+  - ~~Escape phtml~~
   - Catch impressions
   - Extension own cache
   - Private content (hole punch cache)

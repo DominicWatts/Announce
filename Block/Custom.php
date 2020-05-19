@@ -9,12 +9,12 @@ use Magento\Framework\View\Element\Template\Context;
 use Xigen\Announce\Helper\Data;
 use Xigen\Announce\Helper\Fetch;
 
-class Announcement extends \Magento\Framework\View\Element\Template
+class Custom extends Announcement
 {
     /**
      * @var string
      */
-    protected $_template = 'Xigen_Announce::announce.phtml';
+    protected $_template = 'Xigen_Announce::custom.phtml';
 
     /**
      * @var Fetch
@@ -39,7 +39,7 @@ class Announcement extends \Magento\Framework\View\Element\Template
     ) {
         $this->fetchHelper = $fetchHelper;
         $this->filterProvider = $filterProvider;
-        parent::__construct($context, $data);
+        parent::__construct($context, $fetchHelper, $filterProvider, $data);
     }
 
     /**
@@ -58,27 +58,13 @@ class Announcement extends \Magento\Framework\View\Element\Template
     public function getGeneratedBlockId($entity, $type = DATA::GROUP)
     {
         $blockId = $type;
-        if ($this->getPosition()) {
+        if ($this->getGroupId()) {
             $blockId .= __(
-                "-%1",
-                $this->getPosition()
+                "-announce-custom-%1",
+                $this->getGroupId()
             );
         }
 
-        if ($this->getCategoryPosition()) {
-            $blockId .= __(
-                "-%1",
-                $this->getCategoryPosition()
-            );
-        }
-
-        if ($id = $entity->getGroupId() ?: $entity->getMessageId() ?: null) {
-            $blockId .= __(
-                "-%1",
-                $id
-            );
-        }
-        
         return $blockId;
     }
 
@@ -87,20 +73,13 @@ class Announcement extends \Magento\Framework\View\Element\Template
      * @param string $type
      * @return \Magento\Framework\Phrase
      */
-    public function getGenerateBlockClass($entity, $type = DATA::GROUP)
+    public function getGenerateBlockClass($entity, $type = DATA::MESSAGE)
     {
         $blockClass = '';
-        if ($this->getPosition()) {
+        if ($this->getGroupId()) {
             $blockClass .= __(
-                "announce-{$type}__%1",
-                $this->getPosition()
-            );
-        }
-
-        if ($this->getCategoryPosition()) {
-            $blockClass .= __(
-                "announce-{$type}__%1",
-                $this->getPosition()
+                "announce-{$type}__custom-%1",
+                $this->getGroupId()
             );
         }
 
@@ -112,29 +91,5 @@ class Announcement extends \Magento\Framework\View\Element\Template
         }
 
         return $blockClass;
-    }
-
-    /**
-     * @param $entity
-     * @param string $type
-     * @return \Magento\Framework\Phrase
-     */
-    public function getGeneratedComment($type = DATA::OPENING_TAG)
-    {
-        return __(
-            "<!-- $type : %1 %2 //-->",
-            $this->getPosition(),
-            $this->getCategoryPosition()
-        );
-    }
-
-    /**
-     * Filter content to allow for WYSIWYG elements
-     * @param $content
-     * @throws \Exception
-     */
-    public function filter($content)
-    {
-        return $this->filterProvider->getBlockFilter()->filter($content);
     }
 }

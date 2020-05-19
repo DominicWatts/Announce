@@ -28,6 +28,7 @@ class Position implements OptionSourceInterface
                 'value' => [
                     ['value' => 'cms-page-content-top', 'label' => __('Homepage-Content-Top')],
                     ['value' => 'contact-content-top', 'label' => __('Contact-Us-Content-Top')],
+                    ['value' => 'contact-content-form', 'label' => __('Contact-Us-Content-Form')],
                 ],
             ],
             [
@@ -113,6 +114,7 @@ class Position implements OptionSourceInterface
             // Popular positions
             'cms-page-content-top' => __('Homepage-Content-Top'),
             'contact-content-top' => __('Contact-Us-Content-Top'),
+            'contact-content-form' => __('Contact-Us-Content-Form'),
             // General (will be displayed on all pages)
             'sidebar-right-top' => __('Sidebar-Top-Right'),
             'sidebar-right-bottom' => __('Sidebar-Bottom-Right'),

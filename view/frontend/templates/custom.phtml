@@ -1,0 +1,24 @@
+<?php
+/**
+ * @author Dominic <dominic@xigen.co.uk>
+ * @todo catch impressions
+ */
+use Xigen\Announce\Helper\Data;
+
+$helper = $block->getFetchHelper();
+?>
+<?php if ($groups = $helper->getGroupsById([$block->getGroupId()])): ?>
+    <?php foreach ($groups as $group): ?>
+        <?php if ($messages = $helper->getMessageByGroup($group)): ?>
+            <?php foreach ($messages as $message): ?>
+                <div id="<?= $block->escapeHtmlAttr($block->getGeneratedBlockId($message, DATA::MESSAGE)) ?>"
+                    class="<?= $block->escapeHtmlAttr($block->getGenerateBlockClass($message, DATA::MESSAGE)) ?>">
+                    <?= /* @noEscape */ $block->stripTags(
+                        $block->filter($message->getContent()),
+                        '<a><span><div><p><ul><li><table><td><tr><strong>'
+                    ); ?>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>                

@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Dominic <dominic@xigen.co.uk>
- * @todo Escape output, catch impressions
+ * @todo catch impressions
  */
 use Xigen\Announce\Helper\Data;
 
@@ -10,15 +10,15 @@ $helper = $block->getFetchHelper();
 <?= /* @noEscape */ $block->getGeneratedComment(Data::OPENING_TAG); ?>
 <?php if ($groups = $helper->getGroupsForBlock([$block->getPosition(), $block->getCategoryPosition()])): ?>
     <?php foreach ($groups as $group): ?>
-        <div id="<?= /* @noEscape */ $block->getGeneratedBlockId($group, DATA::GROUP) ?>"
-             class="<?= /* @noEscape */ $block->getGenerateBlockClass($group, DATA::GROUP) ?>">
+        <div id="<?= $block->escapeHtmlAttr($block->getGeneratedBlockId($group, DATA::GROUP)) ?>"
+             class="<?= $block->escapeHtmlAttr($block->getGenerateBlockClass($group, DATA::GROUP)) ?>">
             <?php if ($messages = $helper->getMessageByGroup($group)): ?>
                 <?php foreach ($messages as $message): ?>
-                    <div id="<?= /* @noEscape */ $block->getGeneratedBlockId($message, DATA::MESSAGE) ?>"
-                        class="<?= /* @noEscape */ $block->getGenerateBlockClass($message, DATA::MESSAGE) ?>">
+                    <div id="<?= $block->escapeHtmlAttr($block->getGeneratedBlockId($message, DATA::MESSAGE)) ?>"
+                        class="<?= $block->escapeHtmlAttr($block->getGenerateBlockClass($message, DATA::MESSAGE)) ?>">
                         <?= /* @noEscape */ $block->stripTags(
-                            $message->getContent(),
-                            '<p><ul><li><table><td><tr><strong>'
+                            $block->filter($message->getContent()),
+                            '<a><span><div><p><ul><li><table><td><tr><strong>'
                         ); ?>
                     </div>
                 <?php endforeach; ?>
