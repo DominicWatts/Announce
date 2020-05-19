@@ -5,7 +5,6 @@
             <item name="provider" xsi:type="string">xigen_announce_group_form.group_form_data_source</item>
         </item>
         <item name="label" translate="true" xsi:type="string">General Information</item>
-        <item name="template" xsi:type="string">templates/form/collapsible</item>
     </argument>
     <settings>
         <buttons>
@@ -14,6 +13,10 @@
             <button class="Xigen\Announce\Block\Adminhtml\Group\Edit\SaveButton" name="save"/>
             <button class="Xigen\Announce\Block\Adminhtml\Group\Edit\SaveAndContinueButton" name="save_and_continue"/>
         </buttons>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
         <namespace>xigen_announce_group_form</namespace>
         <dataScope>data</dataScope>
         <deps>
@@ -36,6 +39,23 @@
             </settings>
         </dataProvider>
     </dataSource>
+    <htmlContent name="announce_group_edit_tab_view_message_content">
+        <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Message" name="announce_group_edit_tab_message">
+            <arguments>
+                <argument name="sort_order" xsi:type="number">100</argument>
+                <argument name="tab_label" xsi:type="string" translate="true">Message</argument>
+            </arguments>
+        </block>
+    </htmlContent>
+    <htmlContent name="announce_group_edit_tab_view_placement_content">
+        <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Placement" name="announce_group_edit_tab_placement" template="Xigen_Announce::tab/view.phtml">
+            <arguments>
+                <argument name="sort_order" xsi:type="number">110</argument>
+                <argument name="tab_label" xsi:type="string" translate="true">Custom Placement</argument>
+            </arguments>
+            <block class="Xigen\Announce\Block\Adminhtml\Help\Index" name="announce_group_edit_tab_placement_help" template="Xigen_Announce::help/index.phtml"/>
+        </block>
+    </htmlContent>
     <fieldset name="general">
         <settings>
             <label>General</label>

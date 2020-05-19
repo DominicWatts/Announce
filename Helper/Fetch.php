@@ -130,7 +130,7 @@ class Fetch extends AbstractHelper
     }
 
     /**
-     * @param null $groupId
+     * @param GroupInterface $group
      * @return MessageInterface[]|null
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
@@ -175,7 +175,7 @@ class Fetch extends AbstractHelper
     }
 
     /**
-     * Get groys by group ID group
+     * Get groups by group ID
      * @param array $groupId
      * @return GroupInterface[]
      * @throws \Magento\Framework\Exception\InputException
