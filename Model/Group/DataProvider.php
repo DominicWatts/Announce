@@ -60,6 +60,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         $items = $this->collection->getItems();
         foreach ($items as $model) {
             $this->loadedData[$model->getId()] = $model->getData();
+            $this->loadedData[$model->getId()]['general'] = $model->getData();
         }
         $data = $this->dataPersistor->get('xigen_announce_group');
 
@@ -67,6 +68,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
             $model = $this->collection->getNewEmptyItem();
             $model->setData($data);
             $this->loadedData[$model->getId()] = $model->getData();
+            $this->loadedData[$model->getId()]['general'] = $model->getData();
             $this->dataPersistor->clear('xigen_announce_group');
         }
 
