@@ -21,6 +21,9 @@
                     <resource id="Xigen_Announce::Message_update" sortOrder="30" title="Update Message"/>
                     <resource id="Xigen_Announce::Message_view" sortOrder="40" title="View Message"/>
                 </resource>
+                <resource id="Xigen_Announce::xigen_announce" sortOrder="10" title="xigen announce">
+					<resource id="Xigen_Announce::help_index" sortOrder="10" title="help index"/>
+				</resource>
             </resource>
         </resources>
     </acl>

@@ -1,0 +1,23 @@
+<h1><?= $block->escapeHtml(__("Announce Custom Placement")) ?></h1>
+<h2><?= $block->escapeHtml(__("Please use the following syntax")) ?></h2>
+<p><?= $block->escapeHtml(__("#GROUP_ID# denotes message group ID")) ?></p>
+
+<h2><?= $block->escapeHtml(__("Add snippet below to a template file.")) ?></h2>
+<pre>
+$this->getLayout()
+    ->createBlock(Xigen\Announce\Block\Custom::class)
+    ->setGroupId(#GROUP_ID#)
+    ->toHtml();
+</pre>
+<h2><?= $block->escapeHtml(__("Add snippet below to a CMS page or block.")) ?></h2>
+<pre>
+{{block class="Xigen\Announce\Block\Custom" name="xigen.announce.custom" group_id="#GROUP_ID#"}}
+</pre>
+<h2><?= $block->escapeHtml(__("Add snippet below to a XML layout file.")) ?></h2>
+<pre>
+&lt;block class="Xigen\Announce\Block\Custom"&gt;
+    &nbsp;&nbsp;&lt;action method="setGroupId"&gt;
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;argument name="groupId" xsi:type="string"&gt;#GROUP_ID#&lt;/argument&gt;
+    &nbsp;&nbsp;&lt;/action&gt;
+&lt;/block&gt;
+</pre>
