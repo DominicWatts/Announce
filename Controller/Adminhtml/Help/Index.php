@@ -1,13 +1,17 @@
-<?php 
+<?php
 
 declare(strict_types=1);
 
 namespace Xigen\Announce\Controller\Adminhtml\Help;
 
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\View\Result\PageFactory;
 
 class Index extends \Magento\Backend\App\Action
 {
-
+    /**
+     * @var PageFactory
+     */
     protected $resultPageFactory;
 
     /**
@@ -16,8 +20,8 @@ class Index extends \Magento\Backend\App\Action
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
+        Context $context,
+        PageFactory $resultPageFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
@@ -25,7 +29,6 @@ class Index extends \Magento\Backend\App\Action
 
     /**
      * Execute view action
-     *
      * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()
@@ -33,4 +36,3 @@ class Index extends \Magento\Backend\App\Action
         return $this->resultPageFactory->create();
     }
 }
-
