@@ -48,7 +48,7 @@
         </block>
     </htmlContent>
     <htmlContent name="announce_group_edit_tab_view_placement_content">
-        <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Placement" name="announce_group_edit_tab_placement" template="Xigen_Announce::tab/view.phtml">
+        <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Placement" name="announce_group_edit_tab_placement" template="Xigen_Announce::tab/placement.phtml">
             <arguments>
                 <argument name="sort_order" xsi:type="number">110</argument>
                 <argument name="tab_label" xsi:type="string" translate="true">Custom Placement</argument>
