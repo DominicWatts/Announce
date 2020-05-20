@@ -20,6 +20,7 @@ use Xigen\Announce\Api\Data\MessageInterfaceFactory;
 use Xigen\Announce\Api\GroupRepositoryInterface;
 use Xigen\Announce\Api\MessageRepositoryInterface;
 use Xigen\Announce\Model\ResourceModel\Group\CollectionFactory as GroupCollectionFactory;
+use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory as MessageCollectionFactory;
 
 class Fetch extends AbstractHelper
 {
@@ -84,6 +85,11 @@ class Fetch extends AbstractHelper
     private $logger;
 
     /**
+     * @var MessageCollectionFactory
+     */
+    private $messageCollectionFactory;
+
+    /**
      * Fetch constructor.
      * @param Context $context
      * @param GroupRepositoryInterface $groupRepositoryInterface
@@ -97,7 +103,8 @@ class Fetch extends AbstractHelper
      * @param Customer $customerHelper
      * @param Registry $registry
      * @param TimezoneInterface $localeDate
-     * @param Logger $logger,
+     * @param Logger $logger
+     * @param MessageCollectionFactory $messageCollectionFactory
      */
     public function __construct(
         Context $context,
@@ -112,7 +119,8 @@ class Fetch extends AbstractHelper
         Customer $customerHelper,
         Registry $registry,
         TimezoneInterface $localeDate,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        MessageCollectionFactory $messageCollectionFactory
     ) {
         $this->groupRepositoryInterface = $groupRepositoryInterface;
         $this->groupInterfaceFactory = $groupInterfaceFactory;
@@ -126,6 +134,7 @@ class Fetch extends AbstractHelper
         $this->registry = $registry;
         $this->localeDate = $localeDate;
         $this->logger = $logger;
+        $this->messageCollectionFactory = $messageCollectionFactory;
         parent::__construct($context);
     }
 
@@ -394,5 +403,43 @@ class Fetch extends AbstractHelper
             return $this->getGroupsById($groupId);
         }
         return null;
+    }
+
+    /**
+     * Get messages by message ID
+     * @param array $messageId
+     * @return MessageInterface[]
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getMessagesById($messageId = [])
+    {
+        if (count($groupId)) {
+            $this->searchCriteriaBuilder->addFilter(MessageInterface::MESSAGE_ID, $messageId, 'in');
+            $sortBySort = $this->sortOrderFactory
+                ->create()
+                ->setField(MessageInterface::SORT)
+                ->setDirection(SortOrder::SORT_ASC);
+            $sortByName = $this->sortOrderFactory
+                ->create()
+                ->setField(MessageInterface::NAME)
+                ->setDirection(SortOrder::SORT_ASC);
+            $this->searchCriteriaBuilder->setSortOrders([$sortBySort, $sortByName]);
+            $searchCriteria = $this->searchCriteriaBuilder->create();
+            return $this->messageRepositoryInterface->getList($searchCriteria)->getItems();
+        }
+        return [];
+    }
+
+    /**
+     * Get message collection
+     * @return array|null
+     */
+    public function getMessage()
+    {
+        return $this->messageCollectionFactory
+            ->create()
+            ->addFieldToFilter(MessageInterface::STATUS, ['eq' => Data::ENABLED])
+            ->setOrder(MessageInterface::SORT, 'ASC');
     }
 }
