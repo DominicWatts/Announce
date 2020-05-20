@@ -414,7 +414,7 @@ class Fetch extends AbstractHelper
      */
     public function getMessagesById($messageId = [])
     {
-        if (count($groupId)) {
+        if (count($messageId)) {
             $this->searchCriteriaBuilder->addFilter(MessageInterface::MESSAGE_ID, $messageId, 'in');
             $sortBySort = $this->sortOrderFactory
                 ->create()

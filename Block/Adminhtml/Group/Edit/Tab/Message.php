@@ -9,8 +9,8 @@ use Magento\Backend\Block\Widget\Grid\Extended as ExtendedGrid;
 use Magento\Backend\Block\Widget\Tab\TabInterface;
 use Magento\Backend\Helper\Data;
 use Magento\Framework\Registry;
-use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
 use Xigen\Announce\Api\Data\GroupInterface;
+use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
 
 class Message extends ExtendedGrid implements TabInterface
 {
@@ -236,7 +236,7 @@ class Message extends ExtendedGrid implements TabInterface
     public function getSelectedMessages()
     {
         $messages = [];
-        
+
         if ($selected = $this->coreRegistry->registry('xigen_announce_group')) {
             $collection = $selected->getMessages();
         } elseif ($groupId = $this->getRequest()->getParam('group_id')) {

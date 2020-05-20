@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Xigen\Announce\Block\Adminhtml\Group\Edit\Tab;
 
-use Magento\Customer\Controller\RegistryConstants;
-use Magento\Ui\Component\Layout\Tabs\TabInterface;
+use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
 use Magento\Framework\Registry;
-use Magento\Backend\Block\Template;
+use Magento\Ui\Component\Layout\Tabs\TabInterface;
 
 /**
  * Placement instructions form block
@@ -52,11 +51,11 @@ class Tab extends Template implements TabInterface
     }
 
     /**
-     * @return bool
+     * @inheritdoc
      */
     public function canShowTab()
     {
-        return true;
+        return $this->coreRegistry->registry('xigen_announce_group');
     }
 
     /**
@@ -65,7 +64,6 @@ class Tab extends Template implements TabInterface
     public function isHidden()
     {
         return false;
-
     }
 
     /**

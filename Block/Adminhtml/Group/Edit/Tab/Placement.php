@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Xigen\Announce\Block\Adminhtml\Group\Edit\Tab;
 
-use Magento\Customer\Controller\RegistryConstants;
-use Magento\Ui\Component\Layout\Tabs\TabInterface;
+use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
 use Magento\Framework\Registry;
+use Magento\Ui\Component\Layout\Tabs\TabInterface;
 
 /**
  * Placement instructions form block
  */
-class Placement extends \Magento\Backend\Block\Template implements TabInterface
+class Placement extends Template implements TabInterface
 {
     /**
      * Core registry
@@ -64,7 +64,6 @@ class Placement extends \Magento\Backend\Block\Template implements TabInterface
     public function isHidden()
     {
         return false;
-
     }
 
     /**
