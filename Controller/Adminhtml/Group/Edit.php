@@ -22,6 +22,11 @@ class Edit extends \Xigen\Announce\Controller\Adminhtml\Group
     protected $groupFactory;
 
     /**
+     * @var Registry
+     */
+    protected $coreRegistry;
+
+    /**
      * Edit constructor.
      * @param Context $context
      * @param Registry $coreRegistry
@@ -36,6 +41,7 @@ class Edit extends \Xigen\Announce\Controller\Adminhtml\Group
     ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->groupFactory = $groupFactory;
+        $this->coreRegistry = $coreRegistry;
         parent::__construct($context, $coreRegistry);
     }
 
@@ -59,7 +65,7 @@ class Edit extends \Xigen\Announce\Controller\Adminhtml\Group
                 return $resultRedirect->setPath('*/*/');
             }
         }
-        $this->_coreRegistry->register('xigen_announce_group', $model);
+        $this->coreRegistry->register('xigen_announce_group', $model);
 
         // 3. Build edit form
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
