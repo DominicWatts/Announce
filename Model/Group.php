@@ -8,6 +8,7 @@ use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Xigen\Announce\Api\Data\GroupInterface;
 use Xigen\Announce\Api\Data\GroupInterfaceFactory;
+use Xigen\Announce\Helper\Fetch;
 
 class Group extends \Magento\Framework\Model\AbstractModel
 {
@@ -32,6 +33,11 @@ class Group extends \Magento\Framework\Model\AbstractModel
     private $dateTime;
 
     /**
+     * @var Fetch
+     */
+    private $fetchHelper;
+
+    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param GroupInterfaceFactory $groupDataFactory
@@ -49,11 +55,13 @@ class Group extends \Magento\Framework\Model\AbstractModel
         \Xigen\Announce\Model\ResourceModel\Group $resource,
         \Xigen\Announce\Model\ResourceModel\Group\Collection $resourceCollection,
         DateTime $dateTime,
+        Fetch $fetchHelper,
         array $data = []
     ) {
         $this->groupDataFactory = $groupDataFactory;
         $this->dataObjectHelper = $dataObjectHelper;
         $this->dateTime = $dateTime;
+        $this->fetchHelper = $fetchHelper;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -91,5 +99,16 @@ class Group extends \Magento\Framework\Model\AbstractModel
         );
 
         return $groupDataObject;
+    }
+
+    /**
+     * @param GroupInterface $group
+     * @return MessageInterface[]|null
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getMessages()
+    {
+        return $this->fetchHelper->getMessageByGroup($this);
     }
 }

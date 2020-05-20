@@ -1,0 +1,16 @@
+<?php
+/**
+ * Template for block \Magento\Customer\Block\Adminhtml\Edit\Tab\Placement
+ */
+/** @var $block \Magento\Customer\Block\Adminhtml\Edit\Tab\Placement */
+?>
+<div class="fieldset-wrapper">
+    <div class="fieldset-wrapper-title">
+        <strong class="title"><?= $block->escapeHtml(__("Custom Placement")); ?></strong>
+    </div>
+    <div class="admin__fieldset-wrapper-content">
+        <fieldset class="admin__fieldset">
+            <?= $block->getChildHtml(); ?>
+        </fieldset>
+    </div>
+</div>
