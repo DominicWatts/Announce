@@ -40,10 +40,11 @@
         </dataProvider>
     </dataSource>
     <htmlContent name="announce_group_edit_tab_view_message_content">
-        <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Message" name="announce_group_edit_tab_message">
+        <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Tab" name="announce_group_edit_tab_message" template="Xigen_Announce::tab/message.phtml">
+            <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Message" name="announce_group_edit_tab_message_grid" />
             <arguments>
                 <argument name="sort_order" xsi:type="number">100</argument>
-                <argument name="tab_label" xsi:type="string" translate="true">Message</argument>
+                <argument name="tab_label" xsi:type="string" translate="true">Messages</argument>
             </arguments>
         </block>
     </htmlContent>

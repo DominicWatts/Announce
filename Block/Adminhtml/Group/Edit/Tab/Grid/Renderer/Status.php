@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Grid\Renderer;
 
+// phpcs:ignoreFile
+
 use Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRenderer;
 use Xigen\Announce\Helper\Data;
 

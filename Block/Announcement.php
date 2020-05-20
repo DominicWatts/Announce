@@ -78,7 +78,7 @@ class Announcement extends \Magento\Framework\View\Element\Template
                 $id
             );
         }
-        
+
         return $blockId;
     }
 

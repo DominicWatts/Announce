@@ -12,7 +12,7 @@ use Magento\Ui\Component\Layout\Tabs\TabInterface;
 /**
  * Placement instructions form block
  */
-class Placement extends Template implements TabInterface
+class Tab extends Template implements TabInterface
 {
     /**
      * Core registry
@@ -39,7 +39,7 @@ class Placement extends Template implements TabInterface
      */
     public function getTabLabel()
     {
-        return __('Custom Placement');
+        return __('Messages');
     }
 
     /**
@@ -47,15 +47,15 @@ class Placement extends Template implements TabInterface
      */
     public function getTabTitle()
     {
-        return __('Custom Placement');
+        return __('Messages');
     }
 
     /**
-     * @return bool
+     * @inheritdoc
      */
     public function canShowTab()
     {
-        return true;
+        return $this->coreRegistry->registry('xigen_announce_group');
     }
 
     /**
