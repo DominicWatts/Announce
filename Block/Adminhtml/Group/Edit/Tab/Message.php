@@ -10,7 +10,6 @@ use Magento\Backend\Block\Widget\Tab\TabInterface;
 use Magento\Backend\Helper\Data;
 use Magento\Framework\Registry;
 use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
-use Magento\Ui\Component\Layout\Tabs\TabWrapper;
 
 class Message extends ExtendedGrid implements TabInterface
 {
@@ -96,7 +95,6 @@ class Message extends ExtendedGrid implements TabInterface
      */
     protected function _prepareColumns()
     {
-
         $this->addColumn(
             'in_messages',
             [
