@@ -47,7 +47,7 @@ class Message extends ExtendedGrid implements TabInterface
     protected function _construct()
     {
         parent::_construct();
-        $this->setId('xigen_announce_message_grid');
+        $this->setId('announce_group_edit_tab_message_grid');
         $this->setDefaultSort('message_id');
         $this->setDefaultDir('DESC');
         $this->setTitle(__('Messages'));
@@ -55,6 +55,9 @@ class Message extends ExtendedGrid implements TabInterface
         $this->setUseAjax(true);
         if ($groupId = $this->getRequest()->getParam('group_id')) {
             $this->setDefaultFilter(['group_id' => $groupId]);
+        }
+        if ($this->canShowTab()) {
+            $this->setDefaultFilter(['in_messages' => 1]);
         }
     }
 
@@ -162,6 +165,33 @@ class Message extends ExtendedGrid implements TabInterface
         // $this->addExportType('*/*/exportExcel', __('Excel XML'));
 
         return parent::_prepareColumns();
+    }
+
+    /**
+     * Add filter
+     *
+     * @param Column $column
+     * @return $this
+     */
+    protected function _addColumnFilterToCollection($column)
+    {
+        // Set custom filter for in message flag
+        if ($column->getId() == 'in_messages') {
+            $messageIds = $this->_getSelectedMessages();
+            if (empty($messageIds)) {
+                $messageIds = 0;
+            }
+            if ($column->getFilter()->getValue()) {
+                $this->getCollection()->addFieldToFilter('message_id', ['in' => $messageIds]);
+            } else {
+                if ($messageIds) {
+                    $this->getCollection()->addFieldToFilter('message_id', ['nin' => $messageIds]);
+                }
+            }
+        } else {
+            parent::_addColumnFilterToCollection($column);
+        }
+        return $this;
     }
 
     /**
