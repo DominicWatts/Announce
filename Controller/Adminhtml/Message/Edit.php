@@ -11,12 +11,20 @@ use Xigen\Announce\Model\MessageFactory;
 
 class Edit extends \Xigen\Announce\Controller\Adminhtml\Message
 {
+    /**
+     * @var PageFactory
+     */
     protected $resultPageFactory;
 
     /**
      * @var MessageFactory
      */
     protected $messageFactory;
+
+    /**
+     * @var Registry
+     */
+    protected $coreRegistry;
 
     /**
      * Edit constructor.
@@ -33,6 +41,7 @@ class Edit extends \Xigen\Announce\Controller\Adminhtml\Message
     ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->messageFactory = $messageFactory;
+        $this->coreRegistry = $coreRegistry;
         parent::__construct($context, $coreRegistry);
     }
 
@@ -57,7 +66,7 @@ class Edit extends \Xigen\Announce\Controller\Adminhtml\Message
                 return $resultRedirect->setPath('*/*/');
             }
         }
-        $this->_coreRegistry->register('xigen_announce_message', $model);
+        $this->coreRegistry->register('xigen_announce_message', $model);
 
         // 3. Build edit form
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */

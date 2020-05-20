@@ -15,10 +15,9 @@ use Magento\Ui\Component\Layout\Tabs\TabInterface;
 class Tab extends Template implements TabInterface
 {
     /**
-     * Core registry
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry;
+    protected $coreRegistry;
 
     /**
      * @param Context $context
@@ -30,7 +29,7 @@ class Tab extends Template implements TabInterface
         Registry $registry,
         array $data = []
     ) {
-        $this->_coreRegistry = $registry;
+        $this->coreRegistry = $registry;
         parent::__construct($context, $data);
     }
 

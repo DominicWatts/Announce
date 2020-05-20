@@ -14,7 +14,7 @@ abstract class Message extends \Magento\Backend\App\Action
     /**
      * @var Registry
      */
-    protected $_coreRegistry;
+    protected $coreRegistry;
 
     /**
      * Group constructor.
@@ -25,7 +25,7 @@ abstract class Message extends \Magento\Backend\App\Action
         Context $context,
         Registry $coreRegistry
     ) {
-        $this->_coreRegistry = $coreRegistry;
+        $this->coreRegistry = $coreRegistry;
         parent::__construct($context);
     }
 
