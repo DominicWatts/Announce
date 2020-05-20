@@ -101,7 +101,7 @@ class Message extends ExtendedGrid implements TabInterface
             'in_messages',
             [
                 'type' => 'checkbox',
-                'name' => 'in_products',
+                'name' => 'in_messages',
                 'values' => $this->_getSelectedMessages(),
                 'align' => 'center',
                 'index' => 'message_id',
