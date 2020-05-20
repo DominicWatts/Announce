@@ -1,23 +1,22 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace Xigen\Announce\Block\Adminhtml\Help;
 
+use \Magento\Backend\Block\Template\Context;
 
 class Index extends \Magento\Backend\Block\Template
 {
-
     /**
      * Constructor
-     *
-     * @param \Magento\Backend\Block\Template\Context  $context
+     * @param Context $context
      * @param array $data
      */
     public function __construct(
-        \Magento\Backend\Block\Template\Context $context,
+        Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);
     }
 }
-

@@ -49,6 +49,9 @@ class Save extends \Magento\Backend\App\Action
                 return $resultRedirect->setPath('*/*/');
             }
 
+            \Symfony\Component\VarDumper\VarDumper::dump($data);
+            die();
+
             $model->setData($data);
 
             try {
