@@ -10,6 +10,7 @@ use Magento\Backend\Block\Widget\Tab\TabInterface;
 use Magento\Backend\Helper\Data;
 use Magento\Framework\Registry;
 use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
+use Xigen\Announce\Api\Data\GroupInterface;
 
 class Message extends ExtendedGrid implements TabInterface
 {
@@ -50,6 +51,8 @@ class Message extends ExtendedGrid implements TabInterface
         $this->setDefaultSort('message_id');
         $this->setDefaultDir('DESC');
         $this->setTitle(__('Messages'));
+        $this->setSaveParametersInSession(true);
+        $this->setUseAjax(true);
         if ($groupId = $this->getRequest()->getParam('group_id')) {
             $this->setDefaultFilter(['group_id' => $groupId]);
         }
@@ -155,6 +158,9 @@ class Message extends ExtendedGrid implements TabInterface
             ]
         );
 
+        // $this->addExportType('*/*/exportCsv', __('CSV'));
+        // $this->addExportType('*/*/exportExcel', __('Excel XML'));
+
         return parent::_prepareColumns();
     }
 
@@ -200,12 +206,40 @@ class Message extends ExtendedGrid implements TabInterface
     public function getSelectedMessages()
     {
         $messages = [];
-        $collection = $this->coreRegistry->registry('xigen_announce_group')
-            ->getMessages();
+        
+        if ($selected = $this->coreRegistry->registry('xigen_announce_group')) {
+            $collection = $selected->getMessages();
+        } elseif ($groupId = $this->getRequest()->getParam('group_id')) {
+            $collection = $this->messageCollectionFactory->create()
+                ->addFieldToSelect("*")
+                ->addFieldToFilter(GroupInterface::GROUP_ID, ['eq' => $groupId]);
+        }
+
         foreach ($collection as $item) {
             $messages[$item->getMessageId()] = ['sort' => $item->getSort()];
         }
 
         return $messages;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', ['_current' => true]);
+    }
+
+    /**
+     * get row url
+     * @param  object $row
+     * @return string
+     */
+    public function getRowUrl($row)
+    {
+        return $this->getUrl(
+            '*/message/edit',
+            ['message_id' => $row->getId()]
+        );
     }
 }
