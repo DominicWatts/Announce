@@ -149,18 +149,33 @@ class Fetch extends AbstractHelper
         if ($group) {
             $this->searchCriteriaBuilder->addFilter(MessageInterface::STATUS, [Data::ENABLED], 'eq');
             $this->searchCriteriaBuilder->addFilter(MessageInterface::GROUP_ID, [$group->getGroupId()], 'eq');
-            // @todo factor group sort by
-            $sortBySort = $this->sortOrderFactory
-                ->create()
-                ->setField(MessageInterface::SORT)
-                ->setDirection(SortOrder::SORT_ASC);
-            $sortByName = $this->sortOrderFactory
-                ->create()
-                ->setField(MessageInterface::NAME)
-                ->setDirection(SortOrder::SORT_ASC);
-            $this->searchCriteriaBuilder->setSortOrders([$sortBySort, $sortByName]);
+
+            if ($group->getSortby() == Data::ORDERLY) {
+                $sortBySort = $this->sortOrderFactory
+                    ->create()
+                    ->setField(MessageInterface::SORT)
+                    ->setDirection(SortOrder::SORT_ASC);
+                $sortByName = $this->sortOrderFactory
+                    ->create()
+                    ->setField(MessageInterface::NAME)
+                    ->setDirection(SortOrder::SORT_ASC);
+                $this->searchCriteriaBuilder->setSortOrders([$sortBySort, $sortByName]);
+                if ($limit = $group->getLimit()) {
+                    $this->searchCriteriaBuilder->setCurrentPage(Data::FIRST_PAGE);
+                    $this->searchCriteriaBuilder->setPageSize((int) $limit);
+                }
+            }
+
             $searchCriteria = $this->searchCriteriaBuilder->create();
-            return $this->messageRepositoryInterface->getList($searchCriteria)->getItems();
+            $result = $this->messageRepositoryInterface->getList($searchCriteria)->getItems();
+            if ($group->getSortby() == Data::RANDOM) {
+                shuffle($result);
+                if ($limit = $group->getLimit()) {
+                    return array_slice($result, 0, $limit);
+                }
+                return $result;
+            }
+            return $result;
         }
         return null;
     }

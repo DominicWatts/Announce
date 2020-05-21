@@ -21,4 +21,8 @@ class Data extends AbstractHelper
 
     const OPENING_TAG = 'start';
     const CLOSING_TAG = 'end';
+
+    const GROUP_TAB = 'general';
+
+    const FIRST_PAGE = 1;
 }

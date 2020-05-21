@@ -18,17 +18,23 @@
             </button>
         </buttons>
     </settings>
-    <dataSource component="Magento_Ui/js/grid/provider" name="xigen_announce_group_listing_data_source">
-        <settings>
-            <updateUrl path="mui/index/render"/>
-        </settings>
+    <dataSource name="xigen_announce_group_listing_data_source">
         <aclResource>Xigen_Announce::Group</aclResource>
-        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="xigen_announce_group_listing_data_source">
-            <settings>
-                <requestFieldName>id</requestFieldName>
-                <primaryFieldName>group_id</primaryFieldName>
-            </settings>
-        </dataProvider>
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">xigen_announce_group_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">group_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" path="mui/index/render" xsi:type="url"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">group_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
     </dataSource>
     <listingToolbar name="listing_top">
         <settings>
@@ -37,6 +43,50 @@
         <bookmark name="bookmarks"/>
         <columnsControls name="columns_controls"/>
         <filters name="listing_filters"/>
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">xigen_announce_group_listing.xigen_announce_group_listing.xigen_announce_group_columns.ids</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                    <item name="indexField" xsi:type="string">group_id</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete the group entries?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="*/*/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="status">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">status</item>
+                        <item name="label" xsi:type="string" translate="true">Change Status</item>
+                    </item>
+                </argument>
+                <argument name="actions" xsi:type="array">
+                    <item name="0" xsi:type="array">
+                        <item name="type" xsi:type="string">enable</item>
+                        <item name="label" xsi:type="string" translate="true">Yes</item>
+                        <item name="url" xsi:type="url" path="*/*/massStatus">
+                            <param name="status">1</param>
+                        </item>
+                    </item>
+                    <item name="1" xsi:type="array">
+                        <item name="type" xsi:type="string">disable</item>
+                        <item name="label" xsi:type="string" translate="true">No</item>
+                        <item name="url" xsi:type="url" path="*/*/massStatus">
+                            <param name="status">0</param>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="xigen_announce_group_columns">
@@ -176,6 +226,19 @@
             <settings>
                 <filter>text</filter>
                 <label translate="true">Sort</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                         <rule name="validate-digits" xsi:type="boolean">true</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+        <column name="limit">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Limit</label>
                 <editor>
                     <editorType>text</editorType>
                     <validation>

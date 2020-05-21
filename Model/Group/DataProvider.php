@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Xigen\Announce\Model\Group;
 
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Xigen\Announce\Helper\Data;
 use Xigen\Announce\Model\ResourceModel\Group\CollectionFactory;
 
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
@@ -59,16 +60,14 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         }
         $items = $this->collection->getItems();
         foreach ($items as $model) {
-            $this->loadedData[$model->getId()] = $model->getData();
-            $this->loadedData[$model->getId()]['general'] = $model->getData();
+            $this->loadedData[$model->getId()][Data::GROUP_TAB] = $model->getData();
         }
         $data = $this->dataPersistor->get('xigen_announce_group');
 
         if (!empty($data)) {
             $model = $this->collection->getNewEmptyItem();
             $model->setData($data);
-            $this->loadedData[$model->getId()] = $model->getData();
-            $this->loadedData[$model->getId()]['general'] = $model->getData();
+            $this->loadedData[$model->getId()][Data::GROUP_TAB] = $model->getData();
             $this->dataPersistor->clear('xigen_announce_group');
         }
 

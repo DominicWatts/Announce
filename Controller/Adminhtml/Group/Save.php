@@ -7,6 +7,7 @@ namespace Xigen\Announce\Controller\Adminhtml\Group;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
+use Xigen\Announce\Helper\Data;
 use Xigen\Announce\Model\GroupFactory;
 
 class Save extends \Magento\Backend\App\Action
@@ -39,7 +40,7 @@ class Save extends \Magento\Backend\App\Action
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
-        $data = $this->getRequest()->getPostValue();
+        $data = $this->getRequest()->getPostValue(Data::GROUP_TAB);
         if ($data) {
             $id = $this->getRequest()->getParam('group_id');
 

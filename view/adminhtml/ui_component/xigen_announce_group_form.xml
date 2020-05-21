@@ -233,7 +233,23 @@
                 </validation>
             </settings>
         </field>
-        <field formElement="select" name="sort_by" sortOrder="110">
+        <field formElement="input" name="limit" sortOrder="110">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Group</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Limit</label>
+                <dataScope>limit</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                    <rule name="validate-digits" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field formElement="select" name="sort_by" sortOrder="120">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">Xigen\Announce\Model\Config\Source\Sortby</item>
                 <item name="config" xsi:type="array">
