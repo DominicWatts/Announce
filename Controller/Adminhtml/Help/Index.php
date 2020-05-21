@@ -33,6 +33,8 @@ class Index extends \Magento\Backend\App\Action
      */
     public function execute()
     {
-        return $this->resultPageFactory->create();
+        $resultPage = $this->resultPageFactory->create();
+        $resultPage->getConfig()->getTitle()->prepend(__("Help"));
+        return $resultPage;
     }
 }
