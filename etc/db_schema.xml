@@ -18,6 +18,7 @@
         <column comment="Updated At" name="updated_at" nullable="false" xsi:type="datetime" />
         <column comment="Sort" identity="false" name="sort" nullable="true" xsi:type="int" />
         <column comment="Sort By" default="1" name="sort_by" nullable="false" xsi:type="smallint" />
+        <column default="5" identity="false" name="limit" nullable="true" xsi:type="int"/>
     </table>
     <table comment="Stats Table" engine="innodb" name="xigen_announce_stats" resource="default">
         <column comment="Entity Id" identity="true" name="stats_id" nullable="false" padding="6" unsigned="true" xsi:type="smallint"/>

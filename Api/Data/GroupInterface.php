@@ -20,6 +20,7 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const POSITION = 'position';
     const DATE_FROM = 'date_from';
     const DATE_TO = 'date_to';
+    const LIMIT = 'limit';
 
     /**
      * Get group_id
@@ -217,4 +218,17 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Xigen\Announce\Api\Data\GroupInterface
      */
     public function setDateTo($dateTo);
+
+    /**
+     * Get limit
+     * @return string|null
+     */
+    public function getLimit();
+
+    /**
+     * Set limit
+     * @param string $limit
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setLimit($limit);
 }

@@ -293,4 +293,23 @@ class Group extends \Magento\Framework\Api\AbstractExtensibleObject implements G
     {
         return $this->setData(self::DATE_TO, $dateTo);
     }
+
+    /**
+     * Get limit
+     * @return string|null
+     */
+    public function getLimit()
+    {
+        return $this->_get(self::LIMIT);
+    }
+
+    /**
+     * Set limit
+     * @param string $limit
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setLimit($limit)
+    {
+        return $this->setData(self::LIMIT, $limit);
+    }
 }

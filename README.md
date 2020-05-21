@@ -25,6 +25,7 @@ With marketing section in backend configure message groups with the following:
   - Visible date from
   - Visible date to
   - Sort
+  - Limit
   - Message sort by *
 
 Then attach one or more messages to this group with the following:
@@ -47,10 +48,13 @@ I use magento registry to restrict impatch of queries.
   - ~~Custom placement logic / help doc~~
   - ~~Contact Us placement~~
   - ~~Wysiwyg template filter~~
-  - Admin group message selection grid
+  - ~~Admin group message selection grid ~~
+  - Use admin group message grid to change selection and/or sort
   - Group visible only on selected category
   - Group visible only on selected product
-  - Random message sort
+  - ~~Random message sort~~
+  - ~~Message limit~~
+  - ~~Mass status / mass delete~~
   - ~~Escape phtml~~
   - Catch impressions
   - Extension own cache
