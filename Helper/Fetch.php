@@ -171,7 +171,7 @@ class Fetch extends AbstractHelper
             if ($group->getSortby() == Data::RANDOM) {
                 shuffle($result);
                 if ($limit = $group->getLimit()) {
-                    return array_slice($result, 0, $limit);
+                    return array_slice($result, 0, (int) $limit);
                 }
                 return $result;
             }

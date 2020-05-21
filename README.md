@@ -6,10 +6,9 @@
 
 ![PHPStan](https://github.com/DominicWatts/Announce/workflows/PHPStan/badge.svg)
 
-
 ## Magento 2 site-wide customer facing announcements
 
-Easily add personalised customer messages to your magento store. Customised greetings, discounts, upsells and more. Find the comment for the placeholder code in markup and go from there.
+Easily add personalised customer messages to your magento store. Customised annoucements, greetings, discounts, upsells, crossells, testimonials, banners, hero images and more. Find the comment for the placeholder code in markup and go from there. This is framework to allow you to deliver personalised repeating CMS content which meet certain conditions on the frontend.
 
 With marketing section in backend configure message groups with the following:
 
@@ -48,7 +47,7 @@ I use magento registry to restrict impatch of queries.
   - ~~Custom placement logic / help doc~~
   - ~~Contact Us placement~~
   - ~~Wysiwyg template filter~~
-  - ~~Admin group message selection grid ~~
+  - ~~Admin group message selection grid~~
   - Use admin group message grid to change selection and/or sort
   - Group visible only on selected category
   - Group visible only on selected product
@@ -59,6 +58,10 @@ I use magento registry to restrict impatch of queries.
   - Catch impressions
   - Extension own cache
   - Private content (hole punch cache)
+  - Message title, subtitle, link, image
+  - Group / Message markup/template builder
+  - MySQL constraints
+  - Help / ideas docs
   - [Long term] Banner manager
   - [Long term] Product carousels for upsells/cross sells/related
 
@@ -76,10 +79,30 @@ I use magento registry to restrict impatch of queries.
 
     Admin > Marketing > Announcements
 
+### Groups
+
+This section is used to configure message groups. This defines the structure and behaviour of the repeater field.
+
 ![Group Grid](https://i.snipboard.io/CfTWVw.jpg)
 
 ![Group Page](https://i.snipboard.io/4KxMJl.jpg)
 
+### Messages
+
+This section is used to configure messages. The idea is that this is any time of CMS content. These could be banners, hero images, coupon codes, message of the day, widgets and so on. You associate messages to groups. This defines the structure and behaviour of the repeating field.
+
 ![Message Page](https://i.snipboard.io/WtZTbS.jpg)
 
 ![Contact Us](https://i.snipboard.io/1AE5ax.jpg)
+
+### Stats
+
+Message impression stats
+
+### Help
+
+Custom template usage
+
+## Why call it 'announce'
+
+Adblock
