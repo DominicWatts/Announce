@@ -8,8 +8,13 @@ use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Xigen\Announce\Api\Data\MessageInterface;
 use Xigen\Announce\Api\Data\MessageInterfaceFactory;
+use Xigen\Announce\Model\GroupFactory;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Model\AbstractModel;
+use Xigen\Announce\Model\ResourceModel\Message\Collection;
+use Magento\Framework\Registry;
 
-class Message extends \Magento\Framework\Model\AbstractModel
+class Message extends AbstractModel
 {
     /**
      * @var string
@@ -32,6 +37,16 @@ class Message extends \Magento\Framework\Model\AbstractModel
     private $dateTime;
 
     /**
+     * @var \Xigen\Announce\Model\Group
+     */
+    protected $group;
+
+    /**
+     * @var \Xigen\Announce\Model\GroupFactory
+     */
+    protected $groupFactory;
+
+    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param MessageInterfaceFactory $messageDataFactory
@@ -42,18 +57,20 @@ class Message extends \Magento\Framework\Model\AbstractModel
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
+        Context $context,
+        Registry $registry,
         MessageInterfaceFactory $messageDataFactory,
         DataObjectHelper $dataObjectHelper,
+        GroupFactory $groupFactory,
         \Xigen\Announce\Model\ResourceModel\Message $resource,
-        \Xigen\Announce\Model\ResourceModel\Message\Collection $resourceCollection,
+        Collection $resourceCollection,
         DateTime $dateTime,
         array $data = []
     ) {
         $this->messageDataFactory = $messageDataFactory;
         $this->dataObjectHelper = $dataObjectHelper;
         $this->dateTime = $dateTime;
+        $this->groupFactory = $groupFactory;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -85,5 +102,30 @@ class Message extends \Magento\Framework\Model\AbstractModel
         );
 
         return $messageDataObject;
+    }
+
+    /**
+     * Set group
+     * @param \Xigen\Announce\Model\Group $group
+     * @return $this
+     */
+    public function setGroup(\Xigen\Announce\Model\Group $group)
+    {
+        $this->group = $group;
+        return $this;
+    }
+
+    /**
+     * Get order
+     * @return \Xigen\Announce\Model\Group
+     */
+    public function getGroup()
+    {
+        if (!$this->group) {
+            $this->group = $this->groupFactory
+                ->create()
+                ->load($this->getGroupId());
+        }
+        return $this->group;
     }
 }

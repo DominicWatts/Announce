@@ -9,8 +9,13 @@ use Magento\Framework\Stdlib\DateTime\DateTime;
 use Xigen\Announce\Api\Data\GroupInterface;
 use Xigen\Announce\Api\Data\GroupInterfaceFactory;
 use Xigen\Announce\Helper\Fetch;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
+use Xigen\Announce\Model\ResourceModel\Group\Collection;
+use Magento\Framework\Model\AbstractModel;
+use Xigen\Announce\Model\ResourceModel\Group\CollectionFactory;
 
-class Group extends \Magento\Framework\Model\AbstractModel
+class Group extends AbstractModel
 {
     /**
      * @var string
@@ -48,12 +53,13 @@ class Group extends \Magento\Framework\Model\AbstractModel
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
+        Context $context,
+        Registry $registry,
         GroupInterfaceFactory $groupDataFactory,
         DataObjectHelper $dataObjectHelper,
         \Xigen\Announce\Model\ResourceModel\Group $resource,
-        \Xigen\Announce\Model\ResourceModel\Group\Collection $resourceCollection,
+        Collection $resourceCollection,
+        CollectionFactory $messageCollectionFactory,
         DateTime $dateTime,
         Fetch $fetchHelper,
         array $data = []
@@ -62,6 +68,7 @@ class Group extends \Magento\Framework\Model\AbstractModel
         $this->dataObjectHelper = $dataObjectHelper;
         $this->dateTime = $dateTime;
         $this->fetchHelper = $fetchHelper;
+        $this->messageCollectionFactory = $messageCollectionFactory;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -102,7 +109,7 @@ class Group extends \Magento\Framework\Model\AbstractModel
     }
 
     /**
-     * @param GroupInterface $group
+     * Get messages - sort by name
      * @return MessageInterface[]|null
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
@@ -110,5 +117,36 @@ class Group extends \Magento\Framework\Model\AbstractModel
     public function getMessages()
     {
         return $this->fetchHelper->getMessageByGroup($this);
+    }
+
+    /**
+     * Get messages collection
+     * @return CollectionFactory
+     */
+    public function getMessagesCollection()
+    {
+        $collection = $this->messageCollectionFactory->create()
+            ->filterByGroupId($this->getGroupId());
+        if ($this->getId()) {
+            foreach ($collection as $message) {
+                $message->setGroup($this);
+            }
+        }
+        return $collection;
+    }
+
+    /**
+     * Get messages by id
+     * @param mixed $messageId
+     * @return false
+     */
+    public function getMessageById($messageId)
+    {
+        foreach ($this->getMessagesCollection() as $message) {
+            if ($message->getId() == $addressId) {
+                return $message;
+            }
+        }
+        return false;
     }
 }

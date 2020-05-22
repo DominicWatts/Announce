@@ -202,7 +202,7 @@ class Fetch extends AbstractHelper
     }
 
     /**
-     * Get groups - sort by name
+     * Get messages - sort by name
      * @param bool $enabledOnly
      * @return MessageInterface[]
      * @throws \Magento\Framework\Exception\InputException

@@ -25,11 +25,12 @@ class Message implements OptionSourceInterface
     }
 
     /**
+     * Get messages - sort by name
      * @return GroupInterface[]
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    private function getGroups()
+    private function getMessages()
     {
         return $this->fetchHelper->getMessages(false);
     }
@@ -47,7 +48,7 @@ class Message implements OptionSourceInterface
             ]
         ];
 
-        $items = $this->getGroups();
+        $items = $this->getMessages();
         foreach ($items as $item) {
             $return[] = [
                 'value' => $item->getMessageId(),
@@ -68,7 +69,7 @@ class Message implements OptionSourceInterface
      */
     public function toArray()
     {
-        $items = $this->getMessages(false);
+        $items = $this->getMessages();
         $return = [];
         foreach ($items as $item) {
             $return[$item->getMessageId()] = $item->getName();

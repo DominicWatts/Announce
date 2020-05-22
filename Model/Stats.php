@@ -8,8 +8,12 @@ use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Xigen\Announce\Api\Data\StatsInterface;
 use Xigen\Announce\Api\Data\StatsInterfaceFactory;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
+use Xigen\Announce\Model\ResourceModel\Stats\Collection;
+use Magento\Framework\Model\AbstractModel;
 
-class Stats extends \Magento\Framework\Model\AbstractModel
+class Stats extends AbstractModel
 {
     /**
      * @var string
@@ -42,12 +46,12 @@ class Stats extends \Magento\Framework\Model\AbstractModel
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
+        Context $context,
+        Registry $registry,
         StatsInterfaceFactory $statsDataFactory,
         DataObjectHelper $dataObjectHelper,
         \Xigen\Announce\Model\ResourceModel\Stats $resource,
-        \Xigen\Announce\Model\ResourceModel\Stats\Collection $resourceCollection,
+        Collection $resourceCollection,
         DateTime $dateTime,
         array $data = []
     ) {

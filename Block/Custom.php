@@ -50,7 +50,7 @@ class Custom extends Announcement
         $this->fetchHelper = $fetchHelper;
         $this->statsHelper = $statsHelper;
         $this->filterProvider = $filterProvider;
-        parent::__construct($context, $fetchHelper, $statHelper, $filterProvider, $data);
+        parent::__construct($context, $fetchHelper, $statsHelper, $filterProvider, $data);
     }
 
     /**

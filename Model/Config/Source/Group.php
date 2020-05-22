@@ -25,6 +25,7 @@ class Group implements OptionSourceInterface
     }
 
     /**
+     * Get groups - sort by name
      * @return GroupInterface[]
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
@@ -47,7 +48,7 @@ class Group implements OptionSourceInterface
             ]
         ];
 
-        $items = $this->getGroups(false);
+        $items = $this->getGroups();
         foreach ($items as $item) {
             $return[] = [
                 'value' => $item->getGroupId(),
@@ -68,7 +69,7 @@ class Group implements OptionSourceInterface
      */
     public function toArray()
     {
-        $items = $this->getGroups(false);
+        $items = $this->getGroups();
         $return = [];
         foreach ($items as $item) {
             $return[$item->getGroupId()] = $item->getName();
