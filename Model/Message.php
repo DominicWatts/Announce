@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Xigen\Announce\Model;
 
 use Magento\Framework\Api\DataObjectHelper;
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Xigen\Announce\Api\Data\MessageInterface;
 use Xigen\Announce\Api\Data\MessageInterfaceFactory;
-use Xigen\Announce\Model\GroupFactory;
-use Magento\Framework\Model\Context;
-use Magento\Framework\Model\AbstractModel;
 use Xigen\Announce\Model\ResourceModel\Message\Collection;
-use Magento\Framework\Registry;
 
 class Message extends AbstractModel
 {

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Xigen\Announce\Model;
 
 use Magento\Framework\Api\DataObjectHelper;
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Xigen\Announce\Api\Data\StatsInterface;
 use Xigen\Announce\Api\Data\StatsInterfaceFactory;
-use Magento\Framework\Model\Context;
-use Magento\Framework\Registry;
 use Xigen\Announce\Model\ResourceModel\Stats\Collection;
-use Magento\Framework\Model\AbstractModel;
 
 class Stats extends AbstractModel
 {
