@@ -46,6 +46,15 @@
                 <argument name="sort_order" xsi:type="number">100</argument>
                 <argument name="tab_label" xsi:type="string" translate="true">Messages</argument>
             </arguments>
+            <block class="Magento\Backend\Block\Widget\Grid\Serializer" name="announce_group_edit_tab_message_grid_serializer">
+                <arguments>
+                    <argument name="grid_block" xsi:type="string">announce_group_edit_tab_message_grid</argument>
+                    <argument name="callback" xsi:type="string">_getSelectedMessages</argument>
+                    <argument name="input_element_name" xsi:type="string">message[list]</argument>
+                    <argument name="reload_param_name" xsi:type="string">in_messages</argument>
+                </arguments>
+            </block>
+            <block name="grid_script_js" template="Xigen_Announce::tab/message-js.phtml"/>
         </block>
     </htmlContent>
     <htmlContent name="announce_group_edit_tab_view_placement_content">

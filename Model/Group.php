@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Xigen\Announce\Model;
 
 use Magento\Framework\Api\DataObjectHelper;
+use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Xigen\Announce\Api\Data\GroupInterface;
 use Xigen\Announce\Api\Data\GroupInterfaceFactory;
 use Xigen\Announce\Helper\Fetch;
-use Magento\Framework\Model\Context;
-use Magento\Framework\Registry;
 use Xigen\Announce\Model\ResourceModel\Group\Collection;
-use Magento\Framework\Model\AbstractModel;
-use Xigen\Announce\Model\ResourceModel\Group\CollectionFactory;
+use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
 
 class Group extends AbstractModel
 {
@@ -115,13 +115,15 @@ class Group extends AbstractModel
 
     /**
      * Get messages - sort by name
+     * @param bool $enabledOnly
+     * @param int $groupId
      * @return MessageInterface[]|null
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getMessages()
     {
-        return $this->fetchHelper->getMessageByGroup($this);
+        return $this->fetchHelper->getMessages(false, $this->getGroupId());
     }
 
     /**

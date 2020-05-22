@@ -10,6 +10,8 @@ use Magento\Backend\Block\Widget\Tab\TabInterface;
 use Magento\Backend\Helper\Data;
 use Magento\Framework\Registry;
 use Xigen\Announce\Api\Data\GroupInterface;
+use Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Grid\Filter\Status as FilterStatus;
+use Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Grid\Renderer\Status as RendererStatus;
 use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
 
 class Message extends ExtendedGrid implements TabInterface
@@ -141,28 +143,11 @@ class Message extends ExtendedGrid implements TabInterface
             [
                 'header' => __('Status'),
                 'align' => 'center',
-                'filter' => \Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Grid\Filter\Status::class,
+                'filter' => FilterStatus::class,
                 'index' => 'status',
-                'renderer' => \Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Grid\Renderer\Status::class
+                'renderer' => RendererStatus::class
             ]
         );
-
-        $this->addColumn(
-            'sort',
-            [
-                'header' => __('Sort'),
-                'type' => 'number',
-                'validate_class' => 'validate-number',
-                'index' => 'sort',
-                'editable' => true,
-                'edit_only' => true,
-                'header_css_class' => 'col-sort',
-                'column_css_class' => 'col-sort'
-            ]
-        );
-
-        // $this->addExportType('*/*/exportCsv', __('CSV'));
-        // $this->addExportType('*/*/exportExcel', __('Excel XML'));
 
         return parent::_prepareColumns();
     }
@@ -224,7 +209,7 @@ class Message extends ExtendedGrid implements TabInterface
      * Retrieve selected related messages
      * @return array
      */
-    protected function _getSelectedMessages()
+    public function _getSelectedMessages()
     {
         return array_keys($this->getSelectedMessages());
     }
@@ -236,9 +221,10 @@ class Message extends ExtendedGrid implements TabInterface
     public function getSelectedMessages()
     {
         $messages = [];
+        $collection = [];
 
         if ($selected = $this->coreRegistry->registry('xigen_announce_group')) {
-            $collection = $selected->getMessages();
+            $collection = $selected->getMessagesCollection();
         } elseif ($groupId = $this->getRequest()->getParam('group_id')) {
             $collection = $this->messageCollectionFactory->create()
                 ->addFieldToSelect("*")
@@ -258,18 +244,5 @@ class Message extends ExtendedGrid implements TabInterface
     public function getGridUrl()
     {
         return $this->getUrl('*/*/grid', ['_current' => true]);
-    }
-
-    /**
-     * get row url
-     * @param  object $row
-     * @return string
-     */
-    public function getRowUrl($row)
-    {
-        return $this->getUrl(
-            '*/message/edit',
-            ['message_id' => $row->getId()]
-        );
     }
 }

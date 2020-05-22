@@ -204,14 +204,18 @@ class Fetch extends AbstractHelper
     /**
      * Get messages - sort by name
      * @param bool $enabledOnly
+     * @param int $groupId
      * @return MessageInterface[]
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getMessages($enabledOnly = true)
+    public function getMessages($enabledOnly = true, $groupId = false)
     {
         if ($enabledOnly) {
             $this->searchCriteriaBuilder->addFilter(MessageInterface::STATUS, [Data::ENABLED], 'eq');
+        }
+        if ($groupId) {
+            $this->searchCriteriaBuilder->addFilter(MessageInterface::GROUP_ID, [$groupId], 'eq');
         }
         $sortOrder = $this->sortOrderFactory
             ->create()
@@ -409,6 +413,36 @@ class Fetch extends AbstractHelper
             }
         }
         return [];
+    }
+
+    /**
+     * Get message ID by group ID
+     * @param array $positionCode
+     * @return array
+     */
+    public function getMessageIdByGroupId($groupId = null)
+    {
+        if ($groupId) {
+            $collection = $this->messageCollectionFactory
+                ->create()
+                ->addFieldToFilter(MessageInterface::GROUP_ID, ['eq' => $groupId])
+                ->setOrder(MessageInterface::MESSAGE_ID, 'ASC');
+            if ($collection->getSize() > 0) {
+                return $collection->getAllIds();
+            }
+        }
+        return [];
+    }
+
+    /**
+     * Build message comparison string by group ID
+     * @param int $groupId
+     * @return string
+     */
+    public function getSavedMessageIdByGroupId($groupId = null)
+    {
+        $array = $this->getMessageIdByGroupId($groupId);
+        return (string) implode('&', $array);
     }
 
     /**

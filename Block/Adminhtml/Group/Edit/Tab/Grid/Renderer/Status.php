@@ -26,12 +26,12 @@ class Status extends AbstractRenderer
      */
     protected function _construct()
     {
-        // phpcs:disable 
+        // phpcs:disable
         self::$_statuses = [
             Data::ENABLED => __(Data::ENABLED_TEXT),
             Data::DISABLED => __(Data::DISABLED_TEXT),
         ];
-        // phpcs:enable 
+        // phpcs:enable
         parent::_construct();
     }
 
