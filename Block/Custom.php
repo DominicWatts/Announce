@@ -8,6 +8,7 @@ use Magento\Cms\Model\Template\FilterProvider;
 use Magento\Framework\View\Element\Template\Context;
 use Xigen\Announce\Helper\Data;
 use Xigen\Announce\Helper\Fetch;
+use Xigen\Announce\Helper\Stats;
 
 class Custom extends Announcement
 {
@@ -22,32 +23,34 @@ class Custom extends Announcement
     protected $fetchHelper;
 
     /**
+     * @var Stats
+     */
+    protected $statsHelper;
+
+    /**
      * @var FilterProvider
      */
     protected $filterProvider;
 
     /**
-     * Announcement constructor.
+     * Custom constructor.
      * @param Context $context
+     * @param Fetch $fetchHelper
+     * @param Stats $statsHelper
+     * @param FilterProvider $filterProvider
      * @param array $data
      */
     public function __construct(
         Context $context,
         Fetch $fetchHelper,
+        Stats $statsHelper,
         FilterProvider $filterProvider,
         array $data = []
     ) {
         $this->fetchHelper = $fetchHelper;
+        $this->statsHelper = $statsHelper;
         $this->filterProvider = $filterProvider;
-        parent::__construct($context, $fetchHelper, $filterProvider, $data);
-    }
-
-    /**
-     * @return Fetch
-     */
-    public function getFetchHelper()
-    {
-        return $this->fetchHelper;
+        parent::__construct($context, $fetchHelper, $statsHelper, $filterProvider, $data);
     }
 
     /**

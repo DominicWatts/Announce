@@ -24,4 +24,14 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             \Xigen\Announce\Model\ResourceModel\Group::class
         );
     }
+
+    /**
+     * Set random groups order
+     * @return $this
+     */
+    public function setRandomOrder()
+    {
+        $this->getConnection()->orderRand($this->getSelect());
+        return $this;
+    }
 }

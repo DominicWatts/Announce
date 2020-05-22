@@ -9,11 +9,12 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
 use Xigen\Announce\Api\Data\GroupInterface;
 use Xigen\Announce\Model\ResourceModel\Group\CollectionFactory;
+use Magento\Backend\App\Action;
 
 /**
  * Mass-Delete Controller.
  */
-class MassDelete extends \Magento\Backend\App\Action
+class MassDelete extends Action
 {
     const ADMIN_RESOURCE = 'Xigen_Announce::top_level';
 

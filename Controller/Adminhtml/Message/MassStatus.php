@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Xigen\Announce\Controller\Adminhtml\Message;
 
 use Magento\Backend\App\Action\Context;
@@ -7,11 +9,12 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
 use Xigen\Announce\Api\Data\MessageInterface;
 use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
+use Magento\Backend\App\Action;
 
 /**
  * Mass-Status Controller.
  */
-class MassStatus extends \Magento\Backend\App\Action
+class MassStatus extends Action
 {
     const ADMIN_RESOURCE = 'Xigen_Announce::top_level';
 

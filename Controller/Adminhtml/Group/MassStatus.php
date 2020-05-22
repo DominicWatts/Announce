@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Xigen\Announce\Controller\Adminhtml\Group;
 
 use Magento\Backend\App\Action\Context;

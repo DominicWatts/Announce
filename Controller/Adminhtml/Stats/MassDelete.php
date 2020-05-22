@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Xigen\Announce\Controller\Adminhtml\Message;
+namespace Xigen\Announce\Controller\Adminhtml\Stats;
 
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
-use Xigen\Announce\Api\Data\MessageInterface;
-use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
+use Xigen\Announce\Api\Data\StatsInterface;
+use Xigen\Announce\Model\ResourceModel\Stats\CollectionFactory;
 use Magento\Backend\App\Action;
 
 /**
@@ -29,7 +29,7 @@ class MassDelete extends Action
     private $collectionFactory;
 
     /**
-     * MassDelete constructor
+     * MassDelete constructor.
      * @param Context $context
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
@@ -54,7 +54,7 @@ class MassDelete extends Action
         $ids = $this->getRequest()->getPost('selected');
         if ($ids) {
             $collection = $this->collectionFactory->create()
-                ->addFieldToFilter(MessageInterface::MESSAGE_ID, ['in' => $ids]);
+                ->addFieldToFilter(StatsInterface::STATS_ID, ['in' => $ids]);
             $collectionSize = $collection->getSize();
             $deletedItems = 0;
             foreach ($collection as $item) {
@@ -68,11 +68,11 @@ class MassDelete extends Action
             if ($deletedItems != 0) {
                 if ($collectionSize != $deletedItems) {
                     $this->messageManager->addErrorMessage(
-                        __('Failed to delete %1 message item(s).', $collectionSize - $deletedItems)
+                        __('Failed to delete %1 stats item(s).', $collectionSize - $deletedItems)
                     );
                 }
                 $this->messageManager->addSuccessMessage(
-                    __('A total of %1 message item(s) have been deleted.', $deletedItems)
+                    __('A total of %1 stats item(s) have been deleted.', $deletedItems)
                 );
             }
         }

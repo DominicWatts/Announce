@@ -7,7 +7,7 @@ use Xigen\Announce\Api\Data\GroupInterface;
 use Xigen\Announce\Helper\Data;
 use Xigen\Announce\Helper\Fetch;
 
-class Group implements OptionSourceInterface
+class Message implements OptionSourceInterface
 {
     /**
      * @var Fetch
@@ -25,14 +25,14 @@ class Group implements OptionSourceInterface
     }
 
     /**
-     * Get groups - sort by name
+     * Get messages - sort by name
      * @return GroupInterface[]
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    private function getGroups()
+    private function getMessages()
     {
-        return $this->fetchHelper->getGroups(false);
+        return $this->fetchHelper->getMessages(false);
     }
 
     /**
@@ -48,13 +48,13 @@ class Group implements OptionSourceInterface
             ]
         ];
 
-        $items = $this->getGroups();
+        $items = $this->getMessages();
         foreach ($items as $item) {
             $return[] = [
-                'value' => $item->getGroupId(),
+                'value' => $item->getMessageId(),
                 'label' => __(
                     '[%1] %2 [%3]',
-                    $item->getGroupId(),
+                    $item->getMessageId(),
                     $item->getName(),
                     $item->getStatus() == Data::ENABLED ? __(Data::ENABLED_TEXT) : __(Data::DISABLED_TEXT) // phpcs:ignore
                 )
@@ -69,10 +69,10 @@ class Group implements OptionSourceInterface
      */
     public function toArray()
     {
-        $items = $this->getGroups();
+        $items = $this->getMessages();
         $return = [];
         foreach ($items as $item) {
-            $return[$item->getGroupId()] = $item->getName();
+            $return[$item->getMessageId()] = $item->getName();
         }
         return $return;
     }

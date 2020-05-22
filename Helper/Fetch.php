@@ -181,14 +181,17 @@ class Fetch extends AbstractHelper
     }
 
     /**
-     * Get enabled groups - sort by name
+     * Get groups - sort by name
+     * @param bool $enabledOnly
      * @return GroupInterface[]
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getGroups()
+    public function getGroups($enabledOnly = true)
     {
-        $this->searchCriteriaBuilder->addFilter(GroupInterface::STATUS, [Data::ENABLED], 'eq');
+        if ($enabledOnly) {
+            $this->searchCriteriaBuilder->addFilter(GroupInterface::STATUS, [Data::ENABLED], 'eq');
+        }
         $sortOrder = $this->sortOrderFactory
             ->create()
             ->setField(GroupInterface::NAME)
@@ -196,6 +199,27 @@ class Fetch extends AbstractHelper
         $this->searchCriteriaBuilder->setSortOrders([$sortOrder]);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         return $this->groupRepositoryInterface->getList($searchCriteria)->getItems();
+    }
+
+    /**
+     * Get messages - sort by name
+     * @param bool $enabledOnly
+     * @return MessageInterface[]
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getMessages($enabledOnly = true)
+    {
+        if ($enabledOnly) {
+            $this->searchCriteriaBuilder->addFilter(MessageInterface::STATUS, [Data::ENABLED], 'eq');
+        }
+        $sortOrder = $this->sortOrderFactory
+            ->create()
+            ->setField(MessageInterface::NAME)
+            ->setDirection(SortOrder::SORT_ASC);
+        $this->searchCriteriaBuilder->setSortOrders([$sortOrder]);
+        $searchCriteria = $this->searchCriteriaBuilder->create();
+        return $this->messageRepositoryInterface->getList($searchCriteria)->getItems();
     }
 
     /**

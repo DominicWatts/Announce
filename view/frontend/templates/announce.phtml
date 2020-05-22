@@ -6,6 +6,7 @@
 use Xigen\Announce\Helper\Data;
 
 $helper = $block->getFetchHelper();
+$impression = $block->getStatsHelper();
 ?>
 <?= /* @noEscape */ $block->getGeneratedComment(Data::OPENING_TAG); ?>
 <?php if ($groups = $helper->getGroupsForBlock([$block->getPosition(), $block->getCategoryPosition()])): ?>
@@ -21,6 +22,10 @@ $helper = $block->getFetchHelper();
                             '<a><span><div><p><ul><li><table><td><tr><strong>'
                         ); ?>
                     </div>
+                    <?php $impression->setImpression(
+                        $group->getGroupId(),
+                        $message->getMessageId()
+                    ); ?>
                 <?php endforeach; ?>
             <?php endif; ?>                
         </div>
