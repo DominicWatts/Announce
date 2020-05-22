@@ -13,10 +13,12 @@ class Yesno implements OptionSourceInterface
      */
     public function toOptionArray()
     {
+        // phpcs:disable
         return [
             ['value' => Data::ENABLED, 'label' => __(Data::ENABLED_TEXT)],
             ['value' => Data::DISABLED, 'label' => __(Data::DISABLED_TEXT)]
         ];
+        // phpcs:enable
     }
 
     /**
@@ -25,9 +27,11 @@ class Yesno implements OptionSourceInterface
      */
     public function toArray()
     {
+        // phpcs:disable
         return [
             Data::DISABLED => __(Data::ENABLED_TEXT),
             Data::ENABLED => __(Data::DISABLED_TEXT)
         ];
+        // phpcs:enable
     }
 }

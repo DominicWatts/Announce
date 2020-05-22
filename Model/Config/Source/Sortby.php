@@ -13,10 +13,12 @@ class Sortby implements OptionSourceInterface
      */
     public function toOptionArray()
     {
+        // phpcs:disable
         return [
-            ['value' => Data::ORDERLY, 'label' => __('Orderly')],
-            ['value' => Data::RANDOM, 'label' => __('Random')]
+            ['value' => Data::ORDERLY, 'label' => __(Data::ORDERLY_TEXT)],
+            ['value' => Data::RANDOM, 'label' => __(Data::RANDOM_TEXT)]
         ];
+        // phpcs:enable
     }
 
     /**
@@ -25,9 +27,11 @@ class Sortby implements OptionSourceInterface
      */
     public function toArray()
     {
+        // phpcs:disable
         return [
-            Data::ORDERLY => __('Orderly'),
-            Data::RANDOM => __('Random')
+            Data::ORDERLY => __(Data::ORDERLY_TEXT),
+            Data::RANDOM => __(Data::RANDOM_TEXT)
         ];
+        // phpcs:enable
     }
 }

@@ -55,7 +55,7 @@ class Message implements OptionSourceInterface
                     '[%1] %2 [%3]',
                     $item->getMessageId(),
                     $item->getName(),
-                    $item->getStatus() == Data::ENABLED ? __(Data::ENABLED_TEXT) : __(Data::DISABLED_TEXT)
+                    $item->getStatus() == Data::ENABLED ? __(Data::ENABLED_TEXT) : __(Data::DISABLED_TEXT) // phpcs:ignore
                 )
             ];
         }
