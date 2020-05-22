@@ -198,5 +198,4 @@ class Message extends \Magento\Framework\Api\AbstractExtensibleObject implements
     {
         return $this->setData(self::SORT, $sort);
     }
-    
 }
