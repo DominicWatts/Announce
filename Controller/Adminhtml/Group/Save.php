@@ -24,6 +24,16 @@ class Save extends \Magento\Backend\App\Action
      */
     protected $groupFactory;
 
+    /**
+     * @var Fetch
+     */
+    protected $fetchHelper;
+
+    /**
+     * @var Update
+     */
+    protected $updateHelper;
+
     public function __construct(
         Context $context,
         DataPersistorInterface $dataPersistor,
