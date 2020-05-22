@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Xigen\Announce\Helper;
 
-use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\App\Helper\Context;
 use Psr\Log\LoggerInterface;
 use Xigen\Announce\Api\Data\StatsInterface;
-use Xigen\Announce\Model\ResourceModel\Stats\CollectionFactory;
 use Xigen\Announce\Api\Data\StatsInterfaceFactory;
 use Xigen\Announce\Api\StatsRepositoryInterface;
+use Xigen\Announce\Model\ResourceModel\Stats\CollectionFactory;
 
 class Stats extends AbstractHelper
 {
+    const ONE = 1;
+    
     /**
      * @var LoggerInterface
      */
@@ -67,18 +69,18 @@ class Stats extends AbstractHelper
         $stat = $this->getStat($groupId, $messageId);
         if ($stat) {
             try {
-                $stat->setImpressions((int) $stat->getImpressions() + 1);
+                $stat->setImpressions((int) $stat->getImpressions() + self::ONE);
                 $stat->save();
                 return true;
             } catch (\Exception $e) {
                 $this->logger->critical($e);
                 return false;
             }
-
         }
+
         $stat = $this->statsInterfaceFactory
             ->create()
-            ->setImpressions(1)
+            ->setImpressions(self::ONE)
             ->setGroupId($groupId)
             ->setMessageId($messageId);
         try {

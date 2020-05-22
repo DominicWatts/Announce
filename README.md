@@ -48,7 +48,7 @@ I use magento registry to restrict impatch of queries.
   - ~~Contact Us placement~~
   - ~~Wysiwyg template filter~~
   - ~~Admin group message selection grid~~
-  - Use admin group message grid to change selection and/or sort
+  - ~~Use admin group message grid to change selection and/or sort~~
   - Group visible only on selected category
   - Group visible only on selected product
   - ~~Random message sort~~

@@ -27,6 +27,7 @@ class Data extends AbstractHelper
     const CLOSING_TAG = 'end';
 
     const GROUP_TAB = 'general';
+    const MESSAGE_TAB = 'message';
 
     const FIRST_PAGE = 1;
 }

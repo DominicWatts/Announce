@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Xigen\Announce\Controller\Adminhtml\Stats;
 
+use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Ui\Component\MassAction\Filter;
 use Xigen\Announce\Api\Data\StatsInterface;
 use Xigen\Announce\Model\ResourceModel\Stats\CollectionFactory;
-use Magento\Backend\App\Action;
 
 /**
  * Mass-Delete Controller.
