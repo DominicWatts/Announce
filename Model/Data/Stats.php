@@ -122,4 +122,23 @@ class Stats extends \Magento\Framework\Api\AbstractExtensibleObject implements S
     {
         return $this->setData(self::LAST_IMPRESSION_DATE, $lastImpressionDate);
     }
+
+    /**
+     * Get message_id
+     * @return string|null
+     */
+    public function getMessageId()
+    {
+        return $this->_get(self::MESSAGE_ID);
+    }
+
+    /**
+     * Set message_id
+     * @param string $messageId
+     * @return \Xigen\Announce\Api\Data\StatsInterface
+     */
+    public function setMessageId($messageId)
+    {
+        return $this->setData(self::MESSAGE_ID, $messageId);
+    }
 }

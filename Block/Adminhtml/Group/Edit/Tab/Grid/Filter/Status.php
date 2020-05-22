@@ -24,8 +24,8 @@ class Status extends Select
     {
         self::$_statuses = [
             null => null,
-            Data::ENABLED => __('Yes'),
-            Data::DISABLED => __('No'),
+            Data::ENABLED => __(Data::ENABLED_TEXT),
+            Data::DISABLED => __(Data::DISABLED_TEXT),
         ];
         parent::_construct();
     }

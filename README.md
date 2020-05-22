@@ -55,7 +55,7 @@ I use magento registry to restrict impatch of queries.
   - ~~Message limit~~
   - ~~Mass status / mass delete~~
   - ~~Escape phtml~~
-  - Catch impressions
+  - ~~Catch impressions~~
   - Extension own cache
   - Private content (hole punch cache)
   - Message title, subtitle, link, image

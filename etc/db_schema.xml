@@ -26,6 +26,7 @@
             <column name="stats_id"/>
         </constraint>
         <column comment="Group ID" identity="false" name="group_id" nullable="false" xsi:type="int"/>
+        <column comment="Message ID" identity="false" name="message_id" nullable="true" xsi:type="int"/>
         <column comment="Impression Count" default="0" identity="false" name="impressions" nullable="false" xsi:type="int"/>
         <column comment="First Impression Date" name="first_impression_date" nullable="false" xsi:type="datetime"/>
         <column comment="Last Impression Date" name="last_impression_date" nullable="false" xsi:type="datetime"/>

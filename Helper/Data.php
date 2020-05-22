@@ -14,6 +14,9 @@ class Data extends AbstractHelper
     const ENABLED = 1;
     const DISABLED = 0;
 
+    const ENABLED_TEXT = "Enabled";
+    const DISABLED_TEXT = "Disabled";
+
     const ALL_STORE_VIEWS = 0;
 
     const GROUP = 'group';

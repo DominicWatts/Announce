@@ -27,8 +27,8 @@ class Status extends AbstractRenderer
     protected function _construct()
     {
         self::$_statuses = [
-            Data::ENABLED => __('Yes'),
-            Data::DISABLED => __('No'),
+            Data::ENABLED => __(Data::ENABLED_TEXT),
+            Data::DISABLED => __(Data::DISABLED_TEXT),
         ];
         parent::_construct();
     }

@@ -116,14 +116,14 @@
                 <indexField>group_id</indexField>
             </settings>
         </selectionsColumn>
-        <column name="group_id">
+        <column name="group_id" sortOrder="10">
             <settings>
                 <filter>text</filter>
                 <sorting>asc</sorting>
                 <label translate="true">ID</label>
             </settings>
         </column>
-        <column name="name">
+        <column name="name" sortOrder="20">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Name</label>
@@ -135,7 +135,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="position" component="Magento_Ui/js/grid/columns/select">
+        <column name="position" component="Magento_Ui/js/grid/columns/select" sortOrder="30">
             <settings>
                 <options class="Xigen\Announce\Model\Config\Source\Position"/>
                 <filter>select</filter>
@@ -149,7 +149,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="cssclass">
+        <column name="cssclass" sortOrder="40">
             <settings>
                 <filter>text</filter>
                 <label translate="true">CSS Class</label>
@@ -162,7 +162,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="status" component="Magento_Ui/js/grid/columns/select">
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="50">
             <settings>
                 <options class="Xigen\Announce\Model\Config\Source\Yesno"/>
                 <filter>select</filter>
@@ -176,7 +176,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="store_id" component="Magento_Ui/js/grid/columns/select">
+        <column name="store_id" component="Magento_Ui/js/grid/columns/select" sortOrder="60">
             <settings>
                 <filter>select</filter>
                 <options class="Magento\Theme\Model\Scope\StoreSource"/>
@@ -184,7 +184,7 @@
                 <label translate="true">Store View</label>
             </settings>
         </column>
-        <column name="email">
+        <column name="email" sortOrder="70">
             <settings>
                 <label translate="true">Email</label>
                 <editor>
@@ -196,7 +196,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="date_from" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+        <column name="date_from" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date" sortOrder="80">
             <settings>
                 <filter>dateRange</filter>
                 <dataType>date</dataType>
@@ -209,7 +209,7 @@
 				</editor>
             </settings>
         </column>
-        <column name="date_to" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+        <column name="date_to" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date" sortOrder="90">
             <settings>
                 <filter>dateRange</filter>
                 <dataType>date</dataType>
@@ -222,7 +222,7 @@
 				</editor>
             </settings>
         </column>
-        <column name="sort">
+        <column name="sort" sortOrder="100">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Sort</label>
@@ -235,7 +235,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="limit">
+        <column name="limit" sortOrder="110">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Limit</label>
@@ -248,7 +248,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="sort_by" component="Magento_Ui/js/grid/columns/select">
+        <column name="sort_by" component="Magento_Ui/js/grid/columns/select" sortOrder="120">
             <settings>
                 <options class="Xigen\Announce\Model\Config\Source\Sortby"/>
                 <filter>select</filter>

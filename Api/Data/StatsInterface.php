@@ -11,6 +11,7 @@ interface StatsInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const IMPRESSIONS = 'impressions';
     const STATS_ID = 'stats_id';
     const GROUP_ID = 'group_id';
+    const MESSAGE_ID = 'message_id';
 
     /**
      * Get stats_id
@@ -91,4 +92,17 @@ interface StatsInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Xigen\Announce\Api\Data\StatsInterface
      */
     public function setLastImpressionDate($lastImpressionDate);
+
+    /**
+     * Get message_id
+     * @return string|null
+     */
+    public function getMessageId();
+
+    /**
+     * Set message_id
+     * @param string $messageId
+     * @return \Xigen\Announce\Api\Data\StatsInterface
+     */
+    public function setMessageId($messageId);
 }

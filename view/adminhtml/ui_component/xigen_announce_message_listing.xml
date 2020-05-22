@@ -116,14 +116,14 @@
                 <indexField>message_id</indexField>
             </settings>
         </selectionsColumn>
-        <column name="message_id">
+        <column name="message_id" sortOrder="10">
             <settings>
                 <filter>text</filter>
                 <sorting>asc</sorting>
                 <label translate="true">ID</label>
             </settings>
         </column>
-        <column name="name">
+        <column name="name" sortOrder="20">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Name</label>
@@ -135,13 +135,13 @@
                 </editor>
             </settings>
         </column>
-        <column name="content">
+        <column name="content" sortOrder="30">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Content</label>
             </settings>
         </column>
-        <column name="cssclass">
+        <column name="cssclass" sortOrder="40">
             <settings>
                 <filter>text</filter>
                 <label translate="true">CSS Class</label>
@@ -154,7 +154,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="sort">
+        <column name="sort" sortOrder="50">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Sort</label>
@@ -167,7 +167,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="status" component="Magento_Ui/js/grid/columns/select">
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="60">
             <settings>
                 <options class="Xigen\Announce\Model\Config\Source\Yesno"/>
                 <filter>select</filter>
@@ -181,7 +181,7 @@
                 </editor>
             </settings>
         </column>
-        <column name="group_id" component="Magento_Ui/js/grid/columns/select">
+        <column name="group_id" component="Magento_Ui/js/grid/columns/select" sortOrder="70">
             <settings>
                 <options class="Xigen\Announce\Model\Config\Source\Group"/>
                 <filter>select</filter>
