@@ -43,6 +43,11 @@ class Group extends AbstractModel
     private $fetchHelper;
 
     /**
+     * @var CollectionFactory
+     */
+    protected $messageCollectionFactory;
+
+    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param GroupInterfaceFactory $groupDataFactory
@@ -143,7 +148,7 @@ class Group extends AbstractModel
     public function getMessageById($messageId)
     {
         foreach ($this->getMessagesCollection() as $message) {
-            if ($message->getId() == $addressId) {
+            if ($message->getMessageId() == $messageId) {
                 return $message;
             }
         }
