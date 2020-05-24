@@ -36,6 +36,26 @@ class Stats extends AbstractModel
     private $dateTime;
 
     /**
+     * @var \Xigen\Announce\Model\Group
+     */
+    protected $group;
+
+    /**
+     * @var \Xigen\Announce\Model\GroupFactory
+     */
+    protected $groupFactory;
+
+    /**
+     * @var \Xigen\Announce\Model\Message
+     */
+    protected $message;
+
+    /**
+     * @var \Xigen\Announce\Model\GroupFactory
+     */
+    protected $messageFactory;
+
+    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param StatsInterfaceFactory $statsDataFactory
@@ -50,6 +70,8 @@ class Stats extends AbstractModel
         Registry $registry,
         StatsInterfaceFactory $statsDataFactory,
         DataObjectHelper $dataObjectHelper,
+        GroupFactory $groupFactory,
+        MessageFactory $messageFactory,
         \Xigen\Announce\Model\ResourceModel\Stats $resource,
         Collection $resourceCollection,
         DateTime $dateTime,
@@ -58,6 +80,8 @@ class Stats extends AbstractModel
         $this->statsDataFactory = $statsDataFactory;
         $this->dataObjectHelper = $dataObjectHelper;
         $this->dateTime = $dateTime;
+        $this->groupFactory = $groupFactory;
+        $this->messageFactory = $messageFactory;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -89,5 +113,33 @@ class Stats extends AbstractModel
         );
 
         return $statsDataObject;
+    }
+
+    /**
+     * Get group
+     * @return \Xigen\Announce\Model\Group
+     */
+    public function getGroup()
+    {
+        if (!$this->group) {
+            $this->group = $this->groupFactory
+                ->create()
+                ->load($this->getGroupId());
+        }
+        return $this->group;
+    }
+
+    /**
+     * Get message
+     * @return \Xigen\Announce\Model\Message
+     */
+    public function getMessage()
+    {
+        if (!$this->message) {
+            $this->message = $this->messageFactory
+                ->create()
+                ->load($this->getMessageId());
+        }
+        return $this->message;
     }
 }

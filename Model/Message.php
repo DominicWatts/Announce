@@ -115,7 +115,7 @@ class Message extends AbstractModel
     }
 
     /**
-     * Get order
+     * Get group
      * @return \Xigen\Announce\Model\Group
      */
     public function getGroup()
