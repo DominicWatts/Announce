@@ -114,26 +114,13 @@ class Group extends AbstractModel
     }
 
     /**
-     * Get messages - sort by name
-     * @param bool $enabledOnly
-     * @param int $groupId
-     * @return MessageInterface[]|null
-     * @throws \Magento\Framework\Exception\InputException
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function getMessages()
-    {
-        return $this->fetchHelper->getMessages(false, $this->getGroupId());
-    }
-
-    /**
      * Get messages collection
      * @return CollectionFactory
      */
     public function getMessagesCollection()
     {
         $collection = $this->messageCollectionFactory->create()
-            ->filterByGroupId($this->getGroupId());
+            ->addGroupIdFilter($this->getGroupId());
         if ($this->getId()) {
             foreach ($collection as $message) {
                 $message->setGroup($this);

@@ -18,8 +18,6 @@ class Data extends AbstractHelper
     const ENABLED_TEXT = "Enabled";
     const DISABLED_TEXT = "Disabled";
 
-    const ALL_STORE_VIEWS = 0;
-
     const GROUP = 'group';
     const MESSAGE = 'message';
 
@@ -30,4 +28,6 @@ class Data extends AbstractHelper
     const MESSAGE_TAB = 'message';
 
     const FIRST_PAGE = 1;
+
+    const REGISTRY_KEY = 'announce_group_id';
 }
