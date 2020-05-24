@@ -41,7 +41,7 @@ Then attach one or more messages to this group with the following:
 
 Messages are rendered on the frontend based on configuration.
 
-I use magento registry to restrict impatch of queries.
+I use magento registry to restrict footprint of database queries.
 
 ### Todo
 
