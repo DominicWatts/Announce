@@ -7,11 +7,11 @@ namespace Xigen\Announce\Controller\Adminhtml\Group;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
+use Xigen\Announce\Api\Data\GroupInterface;
 use Xigen\Announce\Helper\Data;
 use Xigen\Announce\Helper\Fetch;
 use Xigen\Announce\Helper\Update;
 use Xigen\Announce\Model\GroupFactory;
-use Xigen\Announce\Api\Data\GroupInterface;
 
 class Save extends \Magento\Backend\App\Action
 {
@@ -86,7 +86,6 @@ class Save extends \Magento\Backend\App\Action
                         $this->updateHelper->setMessagesAsGroupId($messages, $model->getId());
                     }
                 }
-
 
                 $this->messageManager->addSuccessMessage(__('You saved the Group.'));
                 $this->dataPersistor->clear('xigen_announce_group');
