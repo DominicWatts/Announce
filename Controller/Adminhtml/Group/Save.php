@@ -11,6 +11,7 @@ use Xigen\Announce\Helper\Data;
 use Xigen\Announce\Helper\Fetch;
 use Xigen\Announce\Helper\Update;
 use Xigen\Announce\Model\GroupFactory;
+use Xigen\Announce\Api\Data\GroupInterface;
 
 class Save extends \Magento\Backend\App\Action
 {
@@ -58,8 +59,7 @@ class Save extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue(Data::GROUP_TAB);
         if ($data) {
-            $id = $this->getRequest()->getParam('group_id');
-
+            $id = $this->getRequest()->getParam(Data::GROUP_TAB)[GroupInterface::GROUP_ID];
             $model = $this->groupFactory->create()->load($id);
             if (!$model->getId() && $id) {
                 $this->messageManager->addErrorMessage(__('This Group no longer exists.'));
@@ -73,20 +73,20 @@ class Save extends \Magento\Backend\App\Action
 
                 // now process the associated messages tab
                 $message = $this->getRequest()->getPostValue(Data::MESSAGE_TAB);
-                if ($data) {
-                    $submittedMessageString = (string) $message['list'] ?: null;
-                    $savedMessageString = $this->fetchHelper->getSavedMessageIdByGroupId($model->getId());
 
-                    if ($submittedMessageString != $savedMessageString) {
-                        $messagesByGroup = $this->fetchHelper->getMessages(false, $model->getId());
-                        $this->updateHelper->setMessagesAsNull($messagesByGroup);
-                        if ($submittedMessageString) {
-                            $submittedmessageId = explode('&', $submittedMessageString);
-                            $messages = $this->fetchHelper->getMessagesById($submittedmessageId);
-                            $this->updateHelper->setMessagesAsGroupId($messages, $model->getId());
-                        }
+                $submittedMessageString = (string) $message['list'] ?: null;
+                $savedMessageString = $this->fetchHelper->getSavedMessageIdByGroupId($model->getId());
+
+                if ($submittedMessageString != $savedMessageString) {
+                    $messagesByGroup = $this->fetchHelper->getMessages(false, $model->getId());
+                    $this->updateHelper->setMessagesAsNull($messagesByGroup);
+                    if ($submittedMessageString) {
+                        $submittedmessageId = explode('&', $submittedMessageString);
+                        $messages = $this->fetchHelper->getMessagesById($submittedmessageId);
+                        $this->updateHelper->setMessagesAsGroupId($messages, $model->getId());
                     }
                 }
+
 
                 $this->messageManager->addSuccessMessage(__('You saved the Group.'));
                 $this->dataPersistor->clear('xigen_announce_group');

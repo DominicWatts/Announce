@@ -240,6 +240,13 @@ class Fetch extends AbstractHelper
             }
         }
 
+        $currentCategory = $this->registry->registry('current_category');
+        if ($currentCategory && $currentCategory->getId()) {
+            $collection->addCategoryFilter($currentCategory->getId());
+        } else {
+            $collection->addFieldToFilter(GroupInterface::CATEGORY, ['null' => true]);
+        }
+
         $collection->setOrder(GroupInterface::SORT, SortOrder::SORT_ASC);
 
         if ($collection->getSize() > 0) {

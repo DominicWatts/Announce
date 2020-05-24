@@ -176,6 +176,30 @@ class Collection extends AbstractCollection
     }
 
     /**
+     * Filter collection for category ID
+     * @param int $categoryId
+     * @return $this
+     */
+    public function addCategoryFilter($categoryId)
+    {
+        if (empty($categoryId)) {
+            return $this;
+        }
+
+        $this->addFieldToFilter(
+            GroupInterface::CATEGORY,
+            [
+                'or' => [
+                    0 => ['finset' => $categoryId],
+                    1 => ['is' => new \Zend_Db_Expr('null')],
+                ]
+            ],
+            'left'
+        );
+        return $this;
+    }
+
+    /**
      * Filter collection for customer email
      * @param $email
      * @return \Xigen\Announce\Model\ResourceModel\Message\Collection
