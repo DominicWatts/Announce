@@ -18,7 +18,8 @@ With marketing section in backend configure message groups with the following:
   - Position in site
   - CSS class
   - Status * 
-  - Store View * 
+  - Store View *
+  - Category
   - Only visible to customer email
   - Only visible to customer group
   - Visible date from
@@ -49,7 +50,7 @@ I use magento registry to restrict impatch of queries.
   - ~~Wysiwyg template filter~~
   - ~~Admin group message selection grid~~
   - ~~Use admin group message grid to change selection and/or sort~~
-  - Group visible only on selected category
+  - ~~Group visible only on selected category~~
   - Group visible only on selected product
   - ~~Random message sort~~
   - ~~Message limit~~

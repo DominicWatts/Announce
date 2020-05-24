@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Xigen\Announce\Model\ResourceModel\Message;
 
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Xigen\Announce\Api\Data\MessageInterface;
 
-class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+class Collection extends AbstractCollection
 {
 
     /**
@@ -55,16 +56,46 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     }
 
     /**
+     * Filter collection by group
+     * @param \Xigen\Announce\Model\Group|int $group
+     * @return $this
+     */
+    public function addGroupFilter($group)
+    {
+        if ($group instanceof \Xigen\Announce\Model\Group) {
+            return $this->addGroupIdFilter($group->getGroupId());
+        } elseif (is_int($group)) {
+            return $this->addGroupIdFilter($group);
+        }
+        return $this;
+    }
+
+    /**
      * Filter collection by group_id
      * @param int $groupId
      * @return $this
      */
-    public function filterByGroupId($groupId = null)
+    public function addGroupIdFilter($groupId = null)
     {
         if (empty($groupId)) {
             $this->addFieldToFilter(MessageInterface::GROUP_ID, ['null' => true]);
         } else {
             $this->addFieldToFilter(MessageInterface::GROUP_ID, $groupId);
+        }
+        return $this;
+    }
+
+    /**
+     * Filter collection by status
+     * @param string $status
+     * @return $this
+     */
+    public function addStatusFilter($status = null)
+    {
+        if (empty($status)) {
+            $this->addFieldToFilter(MessageInterface::STATUS, ['null' => true]);
+        } else {
+            $this->addFieldToFilter(MessageInterface::STATUS, $status);
         }
         return $this;
     }

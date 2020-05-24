@@ -156,7 +156,38 @@
                 </multiselect>
             </formElements>
         </field>
-        <field formElement="input" name="email" sortOrder="60">
+        <field name="category" component="Magento_Catalog/js/components/new-category" sortOrder="60" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="levelsVisibility" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <required>false</required>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <elementTmpl>ui/grid/filters/elements/ui-select</elementTmpl>
+                <label translate="true">Category</label>
+                <dataScope>category</dataScope>
+                <componentType>field</componentType>
+                <listens>
+                    <link name="${ $.namespace }.${ $.namespace }:responseData">setParsed</link>
+                </listens>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Catalog\Ui\Component\Product\Form\Categories\Options"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field formElement="input" name="email" sortOrder="70">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Group</item>
@@ -172,7 +203,7 @@
                 </validation>
             </settings>
         </field>
-        <field formElement="multiselect" name="customer_group_id" sortOrder="70">
+        <field formElement="multiselect" name="customer_group_id" sortOrder="80">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Group</item>
@@ -194,7 +225,7 @@
                 </multiselect>
             </formElements>
         </field>
-        <field formElement="date" name="date_from" sortOrder="80">
+        <field formElement="date" name="date_from" sortOrder="90">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Group</item>
@@ -210,7 +241,7 @@
                 </validation>
             </settings>
         </field>
-        <field formElement="date" name="date_to" sortOrder="90">
+        <field formElement="date" name="date_to" sortOrder="100">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Group</item>
@@ -226,7 +257,7 @@
                 </validation>
             </settings>
         </field>
-        <field formElement="input" name="sort" sortOrder="100">
+        <field formElement="input" name="sort" sortOrder="110">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Group</item>
@@ -242,7 +273,7 @@
                 </validation>
             </settings>
         </field>
-        <field formElement="input" name="limit" sortOrder="110">
+        <field formElement="input" name="limit" sortOrder="120">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">Group</item>
@@ -258,7 +289,7 @@
                 </validation>
             </settings>
         </field>
-        <field formElement="select" name="sort_by" sortOrder="120">
+        <field formElement="select" name="sort_by" sortOrder="130">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">Xigen\Announce\Model\Config\Source\Sortby</item>
                 <item name="config" xsi:type="array">

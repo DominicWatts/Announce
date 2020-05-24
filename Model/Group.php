@@ -88,6 +88,22 @@ class Group extends AbstractModel
         if (is_array($this->getData(GroupInterface::CUSTOMER_GROUP_ID))) {
             $this->setCustomerGroupId(implode(',', $this->getData(GroupInterface::CUSTOMER_GROUP_ID)));
         }
+
+        if ($category = $this->getData(GroupInterface::CATEGORY)) {
+            $cleanCategory = null;
+            if (is_array($category)) {
+                $cleanCategory = [];
+                foreach ($category as $item) {
+                    if (!empty($item) && $item != ',') {
+                        $cleanCategory[$item] = $item;
+                    }
+                }
+            } elseif (is_string($category)) {
+                $cleanCategory = explode(',', $category);
+            }
+            $this->setCategory(implode(',', array_filter($cleanCategory)));
+        }
+
         $this->setUpdatedAt($this->dateTime->gmtDate());
         if ($this->isObjectNew()) {
             $this->setCreatedAt($this->dateTime->gmtDate());
@@ -114,26 +130,13 @@ class Group extends AbstractModel
     }
 
     /**
-     * Get messages - sort by name
-     * @param bool $enabledOnly
-     * @param int $groupId
-     * @return MessageInterface[]|null
-     * @throws \Magento\Framework\Exception\InputException
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function getMessages()
-    {
-        return $this->fetchHelper->getMessages(false, $this->getGroupId());
-    }
-
-    /**
      * Get messages collection
      * @return CollectionFactory
      */
     public function getMessagesCollection()
     {
         $collection = $this->messageCollectionFactory->create()
-            ->filterByGroupId($this->getGroupId());
+            ->addGroupIdFilter($this->getGroupId());
         if ($this->getId()) {
             foreach ($collection as $message) {
                 $message->setGroup($this);

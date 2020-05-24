@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace Xigen\Announce\Helper;
 
-use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Api\SortOrderFactory;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Registry;
-use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Psr\Log\LoggerInterface;
 use Xigen\Announce\Api\Data\GroupInterface;
-use Xigen\Announce\Api\Data\GroupInterfaceFactory;
 use Xigen\Announce\Api\Data\MessageInterface;
-use Xigen\Announce\Api\Data\MessageInterfaceFactory;
 use Xigen\Announce\Api\GroupRepositoryInterface;
 use Xigen\Announce\Api\MessageRepositoryInterface;
 use Xigen\Announce\Model\ResourceModel\Group\CollectionFactory as GroupCollectionFactory;
@@ -30,29 +26,14 @@ class Fetch extends AbstractHelper
     protected $groupRepositoryInterface;
 
     /**
-     * @var GroupInterfaceFactory
-     */
-    protected $groupInterfaceFactory;
-
-    /**
      * @var MessageRepositoryInterface
      */
     protected $messageRepositoryInterface;
 
     /**
-     * @var MessageInterfaceFactory
-     */
-    protected $messageInterfaceFactory;
-
-    /**
      * @var SearchCriteriaBuilder
      */
     private $searchCriteriaBuilder;
-
-    /**
-     * @var FilterBuilder
-     */
-    private $filterBuilder;
 
     /**
      * @var SortOrderFactory
@@ -75,11 +56,6 @@ class Fetch extends AbstractHelper
     private $registry;
 
     /**
-     * @var TimezoneInterface
-     */
-    private $localeDate;
-
-    /**
      * @var LoggerInterface
      */
     private $logger;
@@ -93,53 +69,42 @@ class Fetch extends AbstractHelper
      * Fetch constructor.
      * @param Context $context
      * @param GroupRepositoryInterface $groupRepositoryInterface
-     * @param GroupInterfaceFactory $groupInterfaceFactory
      * @param MessageRepositoryInterface $messageRepositoryInterface
-     * @param MessageInterfaceFactory $messageInterfaceFactory
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param FilterBuilder $filterBuilder
      * @param SortOrderFactory $sortOrderFactory
      * @param GroupCollectionFactory $groupCollectionFactory
      * @param Customer $customerHelper
      * @param Registry $registry
-     * @param TimezoneInterface $localeDate
-     * @param Logger $logger
+     * @param LoggerInterface $logger
      * @param MessageCollectionFactory $messageCollectionFactory
      */
     public function __construct(
         Context $context,
         GroupRepositoryInterface $groupRepositoryInterface,
-        GroupInterfaceFactory $groupInterfaceFactory,
         MessageRepositoryInterface $messageRepositoryInterface,
-        MessageInterfaceFactory $messageInterfaceFactory,
         SearchCriteriaBuilder $searchCriteriaBuilder,
-        FilterBuilder $filterBuilder,
         SortOrderFactory $sortOrderFactory,
         GroupCollectionFactory $groupCollectionFactory,
         Customer $customerHelper,
         Registry $registry,
-        TimezoneInterface $localeDate,
         LoggerInterface $logger,
         MessageCollectionFactory $messageCollectionFactory
     ) {
         $this->groupRepositoryInterface = $groupRepositoryInterface;
-        $this->groupInterfaceFactory = $groupInterfaceFactory;
         $this->messageRepositoryInterface = $messageRepositoryInterface;
-        $this->messageInterfaceFactory = $messageInterfaceFactory;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->filterBuilder = $filterBuilder;
         $this->sortOrderFactory = $sortOrderFactory;
         $this->groupCollectionFactory = $groupCollectionFactory;
         $this->customerHelper = $customerHelper;
         $this->registry = $registry;
-        $this->localeDate = $localeDate;
         $this->logger = $logger;
         $this->messageCollectionFactory = $messageCollectionFactory;
         parent::__construct($context);
     }
 
     /**
-     * @param GroupInterface $group
+     * Get messages by Group
+     * @param GroupInterface|int $group
      * @return MessageInterface[]|null
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
@@ -147,18 +112,20 @@ class Fetch extends AbstractHelper
     public function getMessageByGroup($group)
     {
         if ($group) {
+            if (is_int($group)) {
+                $groupId = $group;
+            } elseif ($group instanceof GroupInterface) {
+                $groupId = $group->getGroupId();
+            } else {
+                return [];
+            }
+
             $this->searchCriteriaBuilder->addFilter(MessageInterface::STATUS, [Data::ENABLED], 'eq');
-            $this->searchCriteriaBuilder->addFilter(MessageInterface::GROUP_ID, [$group->getGroupId()], 'eq');
+            $this->searchCriteriaBuilder->addFilter(MessageInterface::GROUP_ID, [$groupId], 'eq');
 
             if ($group->getSortby() == Data::ORDERLY) {
-                $sortBySort = $this->sortOrderFactory
-                    ->create()
-                    ->setField(MessageInterface::SORT)
-                    ->setDirection(SortOrder::SORT_ASC);
-                $sortByName = $this->sortOrderFactory
-                    ->create()
-                    ->setField(MessageInterface::NAME)
-                    ->setDirection(SortOrder::SORT_ASC);
+                $sortBySort = $this->createSortOrder(MessageInterface::SORT);
+                $sortByName = $this->createSortOrder(MessageInterface::NAME);
                 $this->searchCriteriaBuilder->setSortOrders([$sortBySort, $sortByName]);
                 if ($limit = $group->getLimit()) {
                     $this->searchCriteriaBuilder->setCurrentPage(Data::FIRST_PAGE);
@@ -177,7 +144,7 @@ class Fetch extends AbstractHelper
             }
             return $result;
         }
-        return null;
+        return [];
     }
 
     /**
@@ -192,10 +159,7 @@ class Fetch extends AbstractHelper
         if ($enabledOnly) {
             $this->searchCriteriaBuilder->addFilter(GroupInterface::STATUS, [Data::ENABLED], 'eq');
         }
-        $sortOrder = $this->sortOrderFactory
-            ->create()
-            ->setField(GroupInterface::NAME)
-            ->setDirection(SortOrder::SORT_ASC);
+        $sortOrder = $this->createSortOrder(GroupInterface::NAME);
         $this->searchCriteriaBuilder->setSortOrders([$sortOrder]);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         return $this->groupRepositoryInterface->getList($searchCriteria)->getItems();
@@ -204,23 +168,28 @@ class Fetch extends AbstractHelper
     /**
      * Get messages - sort by name
      * @param bool $enabledOnly
-     * @param int $groupId
+     * @param int|GroupInterface $group
      * @return MessageInterface[]
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getMessages($enabledOnly = true, $groupId = false)
+    public function getMessages($enabledOnly = true, $group = false)
     {
         if ($enabledOnly) {
             $this->searchCriteriaBuilder->addFilter(MessageInterface::STATUS, [Data::ENABLED], 'eq');
         }
+
+        $groupId = null;
+        if (is_int($group)) {
+            $groupId = $group;
+        } elseif ($group instanceof GroupInterface) {
+            $groupId = $group->getGroupId();
+        }
+
         if ($groupId) {
             $this->searchCriteriaBuilder->addFilter(MessageInterface::GROUP_ID, [$groupId], 'eq');
         }
-        $sortOrder = $this->sortOrderFactory
-            ->create()
-            ->setField(MessageInterface::NAME)
-            ->setDirection(SortOrder::SORT_ASC);
+        $sortOrder = $this->createSortOrder(MessageInterface::NAME);
         $this->searchCriteriaBuilder->setSortOrders([$sortOrder]);
         $searchCriteria = $this->searchCriteriaBuilder->create();
         return $this->messageRepositoryInterface->getList($searchCriteria)->getItems();
@@ -237,14 +206,8 @@ class Fetch extends AbstractHelper
     {
         if (count($groupId)) {
             $this->searchCriteriaBuilder->addFilter(GroupInterface::GROUP_ID, $groupId, 'in');
-            $sortBySort = $this->sortOrderFactory
-                ->create()
-                ->setField(GroupInterface::SORT)
-                ->setDirection(SortOrder::SORT_ASC);
-            $sortByName = $this->sortOrderFactory
-                ->create()
-                ->setField(GroupInterface::NAME)
-                ->setDirection(SortOrder::SORT_ASC);
+            $sortBySort = $this->createSortOrder(GroupInterface::SORT);
+            $sortByName = $this->createSortOrder(GroupInterface::NAME);
             $this->searchCriteriaBuilder->setSortOrders([$sortBySort, $sortByName]);
             $searchCriteria = $this->searchCriteriaBuilder->create();
             return $this->groupRepositoryInterface->getList($searchCriteria)->getItems();
@@ -256,21 +219,35 @@ class Fetch extends AbstractHelper
      * Get applicable group IDs
      * @return array|null
      */
-    public function getGroupId()
+    public function getFilteredGroupIds()
     {
-        if ($groupId = $this->registry->registry('announce_group_id')) {
+        if ($groupId = $this->registry->registry(Data::REGISTRY_KEY)) {
             return $groupId;
         }
 
         $collection = $this->groupCollectionFactory
             ->create()
-            ->addFieldToFilter(GroupInterface::STATUS, ['eq' => Data::ENABLED])
-            ->setOrder(GroupInterface::SORT, 'ASC');
+            ->addStatusFilter(Data::ENABLED)
+            ->addStoreFilter()
+            ->addDateFilter();
 
-        $collection = $this->filterWithinDate($collection);
-        $collection = $this->filterForCustomer($collection);
-        $collection = $this->getFilterForCustomerGroup($collection);
-        $collection = $this->getFilterForStore($collection);
+        if ($this->customerHelper->isLoggedIn()) {
+            if ($customerGroupId = $this->customerHelper->getGroupId()) {
+                $collection->addCustomerGroupFilter($customerGroupId);
+            }
+            if ($email = $this->customerHelper->getEmail()) {
+                $collection->addCustomerEmailFilter($email);
+            }
+        }
+
+        $currentCategory = $this->registry->registry('current_category');
+        if ($currentCategory && $currentCategory->getId()) {
+            $collection->addCategoryFilter($currentCategory->getId());
+        } else {
+            $collection->addFieldToFilter(GroupInterface::CATEGORY, ['null' => true]);
+        }
+
+        $collection->setOrder(GroupInterface::SORT, SortOrder::SORT_ASC);
 
         if ($collection->getSize() > 0) {
             $groupId = $collection->getAllIds();
@@ -279,119 +256,8 @@ class Fetch extends AbstractHelper
             $groupId[] = 99999999999;
         }
 
-        $this->registry->register('announce_group_id', $groupId);
+        $this->registry->register(Data::REGISTRY_KEY, $groupId);
         return $groupId;
-    }
-
-    /**
-     * Filter collection within dates
-     * @param GroupCollectionFactory $collection
-     * @return GroupCollectionFactory
-     */
-    public function filterWithinDate($collection)
-    {
-        $todayStartOfDayDate = $this->localeDate->date()->setTime(0, 0, 0)->format('Y-m-d H:i:s');
-        $todayEndOfDayDate = $this->localeDate->date()->setTime(23, 59, 59)->format('Y-m-d H:i:s');
-        $collection->addFieldToFilter(
-            GroupInterface::DATE_FROM,
-            [
-                'or' => [
-                    0 => ['date' => true, 'to' => $todayEndOfDayDate],
-                    1 => ['is' => new \Zend_Db_Expr('null')],
-                ]
-            ],
-            'left'
-        )->addFieldToFilter(
-            GroupInterface::DATE_TO,
-            [
-                'or' => [
-                    0 => ['date' => true, 'from' => $todayStartOfDayDate],
-                    1 => ['is' => new \Zend_Db_Expr('null')],
-                ]
-            ],
-            'left'
-        )->addFieldToFilter(
-            [GroupInterface::DATE_FROM, GroupInterface::DATE_TO],
-            [
-                ['is' => new \Zend_Db_Expr('not null')],
-                ['is' => new \Zend_Db_Expr('not null')]
-            ]
-        );
-
-        return $collection;
-    }
-
-    /**
-     * Filter collection for customer
-     * @param GroupCollectionFactory $collection
-     * @return GroupCollectionFactory
-     */
-    public function filterForCustomer($collection)
-    {
-        if (!$this->customerHelper->isLoggedIn()) {
-            return $collection;
-        }
-
-        $email = $this->customerHelper->getEmail();
-
-        $collection->addFieldToFilter(
-            [GroupInterface::EMAIL, GroupInterface::EMAIL],
-            [
-                ['eq' => $email],
-                ['is' => new \Zend_Db_Expr('null')]
-            ]
-        );
-
-        return $collection;
-    }
-
-    /**
-     * Filter collection for customer group
-     * @param GroupCollectionFactory $collection
-     * @return GroupCollectionFactory
-     */
-    public function getFilterForCustomerGroup($collection)
-    {
-        if (!$this->customerHelper->isLoggedIn()) {
-            return $collection;
-        }
-
-        $groupId = $this->customerHelper->getGroupId();
-
-        $collection->addFieldToFilter(
-            GroupInterface::CUSTOMER_GROUP_ID,
-            [
-                'or' => [
-                    0 => ['finset' => $groupId],
-                    1 => ['is' => new \Zend_Db_Expr('null')],
-                ]
-            ],
-            'left'
-        );
-
-        return $collection;
-    }
-
-    /**
-     * Filter collection by store
-     * @param GroupCollectionFactory $collection
-     * @return GroupCollectionFactory mixed
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     */
-    public function getFilterForStore($collection)
-    {
-        $storeId = $this->customerHelper->getStoreId();
-        $collection->addFieldToFilter(
-            GroupInterface::STORE_ID,
-            [
-                'or' => [
-                    0 => ['finset' => Data::ALL_STORE_VIEWS],
-                    1 => ['finset' => $storeId],
-                ]
-            ],
-            'left'
-        );
-        return $collection;
     }
 
     /**
@@ -402,12 +268,12 @@ class Fetch extends AbstractHelper
     public function getGroupIdByPosition($positionCode = [])
     {
         if (!empty($positionCode)) {
-            $groupId = $this->getGroupId();
+            $groupId = $this->getFilteredGroupIds();
             $collection = $this->groupCollectionFactory
                 ->create()
                 ->addFieldToFilter(GroupInterface::GROUP_ID, ['in' => $groupId])
                 ->addFieldToFilter(GroupInterface::POSITION, ['in' => $positionCode])
-                ->setOrder(GroupInterface::SORT, 'ASC');
+                ->setOrder(GroupInterface::SORT, SortOrder::SORT_ASC);
             if ($collection->getSize() > 0) {
                 return $collection->getAllIds();
             }
@@ -426,7 +292,7 @@ class Fetch extends AbstractHelper
             $collection = $this->messageCollectionFactory
                 ->create()
                 ->addFieldToFilter(MessageInterface::GROUP_ID, ['eq' => $groupId])
-                ->setOrder(MessageInterface::MESSAGE_ID, 'ASC');
+                ->setOrder(MessageInterface::MESSAGE_ID, SortOrder::SORT_ASC);
             if ($collection->getSize() > 0) {
                 return $collection->getAllIds();
             }
@@ -450,7 +316,7 @@ class Fetch extends AbstractHelper
      * @param int $groupId
      * @return bool|GroupInterface
      */
-    public function getGroup($groupId = null)
+    public function getGroupById($groupId = null)
     {
         if ($groupId) {
             try {
@@ -489,14 +355,8 @@ class Fetch extends AbstractHelper
     {
         if (count($messageId)) {
             $this->searchCriteriaBuilder->addFilter(MessageInterface::MESSAGE_ID, $messageId, 'in');
-            $sortBySort = $this->sortOrderFactory
-                ->create()
-                ->setField(MessageInterface::SORT)
-                ->setDirection(SortOrder::SORT_ASC);
-            $sortByName = $this->sortOrderFactory
-                ->create()
-                ->setField(MessageInterface::NAME)
-                ->setDirection(SortOrder::SORT_ASC);
+            $sortBySort = $this->createSortOrder(MessageInterface::SORT);
+            $sortByName = $this->createSortOrder(MessageInterface::NAME);
             $this->searchCriteriaBuilder->setSortOrders([$sortBySort, $sortByName]);
             $searchCriteria = $this->searchCriteriaBuilder->create();
             return $this->messageRepositoryInterface->getList($searchCriteria)->getItems();
@@ -505,14 +365,17 @@ class Fetch extends AbstractHelper
     }
 
     /**
-     * Get message collection
-     * @return array|null
+     * Create order order
+     * @param string $attributeCode
+     * @param string $direction
+     * @return SortOrder
+     * @throws \Magento\Framework\Exception\InputException
      */
-    public function getMessage()
+    protected function createSortOrder($attributeCode, $direction = SortOrder::SORT_ASC)
     {
-        return $this->messageCollectionFactory
+        return $this->sortOrderFactory
             ->create()
-            ->addFieldToFilter(MessageInterface::STATUS, ['eq' => Data::ENABLED])
-            ->setOrder(MessageInterface::SORT, 'ASC');
+            ->setField($attributeCode)
+            ->setDirection($direction);
     }
 }

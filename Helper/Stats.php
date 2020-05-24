@@ -15,7 +15,7 @@ use Xigen\Announce\Model\ResourceModel\Stats\CollectionFactory;
 class Stats extends AbstractHelper
 {
     const ONE = 1;
-    
+
     /**
      * @var LoggerInterface
      */
