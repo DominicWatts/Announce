@@ -7,7 +7,7 @@ use Xigen\Announce\Helper\Data;
 
 $helper = $block->getFetchHelper();
 ?>
-<?php if ($groups = $helper->getGroupsById([$block->getGroupId()])): ?>
+<?php if ($groups = $helper->getGroupsById($block->getGroupId())): ?>
     <?php foreach ($groups as $group): ?>
         <?php if ($messages = $helper->getMessageByGroup($group)): ?>
             <?php foreach ($messages as $message): ?>

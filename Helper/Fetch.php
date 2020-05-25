@@ -197,15 +197,19 @@ class Fetch extends AbstractHelper
 
     /**
      * Get groups by group ID
-     * @param array $groupId
+     * @param array|int $groupId
      * @return GroupInterface[]
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getGroupsById($groupId = [])
+    public function getGroupsById($groupId = null)
     {
-        if (count($groupId)) {
-            $this->searchCriteriaBuilder->addFilter(GroupInterface::GROUP_ID, $groupId, 'in');
+        if (!empty($groupId)) {
+            if (is_int($groupId)) {
+                $this->searchCriteriaBuilder->addFilter(GroupInterface::GROUP_ID, $groupId, 'eq');
+            } elseif (is_array($groupId)) {
+                $this->searchCriteriaBuilder->addFilter(GroupInterface::GROUP_ID, $groupId, 'in');
+            }
             $sortBySort = $this->createSortOrder(GroupInterface::SORT);
             $sortByName = $this->createSortOrder(GroupInterface::NAME);
             $this->searchCriteriaBuilder->setSortOrders([$sortBySort, $sortByName]);
