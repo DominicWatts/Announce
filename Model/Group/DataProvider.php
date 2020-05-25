@@ -61,7 +61,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         $items = $this->collection->getItems();
         foreach ($items as $model) {
             $form = $this->loadedData[$model->getId()][Data::GROUP_TAB] = $model->getData();
-            $form['category'] = explode(',', $form['category']);
+            $form['category'] = explode(',', (string) $form['category']);
         }
         $data = $this->dataPersistor->get('xigen_announce_group');
 
