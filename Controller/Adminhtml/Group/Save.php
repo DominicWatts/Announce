@@ -67,8 +67,7 @@ class Save extends \Magento\Backend\App\Action
                 return $resultRedirect->setPath('*/*/');
             }
 
-            
-            if($product = $this->_linkProducts($model)) {
+            if ($product = $this->_linkProducts($model)) {
                 $data['product'] = $product;
             }
 
@@ -78,7 +77,6 @@ class Save extends \Magento\Backend\App\Action
                 $model->save();
 
                 $this->_linkMessages($model);
-                // $this->_linkProducts($model);
 
                 $this->messageManager->addSuccessMessage(__('You saved the Group.'));
                 $this->dataPersistor->clear('xigen_announce_group');
@@ -103,9 +101,8 @@ class Save extends \Magento\Backend\App\Action
      * now process the associated messages tab
      * @return void
      */
-    protected function _linkMessages(Group $model): void
+    protected function _linkMessages(Group $model)
     {
-
         $message = $this->getRequest()->getPostValue(Data::MESSAGE_TAB);
 
         $submittedMessageString = (string) $message['list'] ?: null;
@@ -124,7 +121,7 @@ class Save extends \Magento\Backend\App\Action
 
     /**
      * now process the associated products tab
-     * @return void
+     * @return string|null
      */
     protected function _linkProducts(Group $model)
     {

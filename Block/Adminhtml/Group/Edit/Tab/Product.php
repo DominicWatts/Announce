@@ -298,7 +298,7 @@ class Product extends Extended implements TabInterface
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } else {
-                if ($messageIds) {
+                if ($productIds) {
                     $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
                 }
             }
