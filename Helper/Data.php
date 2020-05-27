@@ -26,6 +26,7 @@ class Data extends AbstractHelper
 
     const GROUP_TAB = 'general';
     const MESSAGE_TAB = 'message';
+    const PRODUCT_TAB = 'product';
 
     const FIRST_PAGE = 1;
 

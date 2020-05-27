@@ -12,6 +12,7 @@ use Xigen\Announce\Helper\Data;
 use Xigen\Announce\Helper\Fetch;
 use Xigen\Announce\Helper\Update;
 use Xigen\Announce\Model\GroupFactory;
+use Xigen\Announce\Model\Group;
 
 class Save extends \Magento\Backend\App\Action
 {
@@ -66,26 +67,18 @@ class Save extends \Magento\Backend\App\Action
                 return $resultRedirect->setPath('*/*/');
             }
 
+            
+            if($product = $this->_linkProducts($model)) {
+                $data['product'] = $product;
+            }
+
             $model->setData($data);
 
             try {
                 $model->save();
 
-                // now process the associated messages tab
-                $message = $this->getRequest()->getPostValue(Data::MESSAGE_TAB);
-
-                $submittedMessageString = (string) $message['list'] ?: null;
-                $savedMessageString = $this->fetchHelper->getSavedMessageIdByGroupId($model->getId());
-
-                if ($submittedMessageString != $savedMessageString) {
-                    $messagesByGroup = $this->fetchHelper->getMessages(false, $model->getId());
-                    $this->updateHelper->setMessagesAsNull($messagesByGroup);
-                    if ($submittedMessageString) {
-                        $submittedmessageId = explode('&', $submittedMessageString);
-                        $messages = $this->fetchHelper->getMessagesById($submittedmessageId);
-                        $this->updateHelper->setMessagesAsGroupId($messages, $model->getId());
-                    }
-                }
+                $this->_linkMessages($model);
+                // $this->_linkProducts($model);
 
                 $this->messageManager->addSuccessMessage(__('You saved the Group.'));
                 $this->dataPersistor->clear('xigen_announce_group');
@@ -104,5 +97,46 @@ class Save extends \Magento\Backend\App\Action
             return $resultRedirect->setPath('*/*/edit', ['group_id' => $id]);
         }
         return $resultRedirect->setPath('*/*/');
+    }
+
+    /**
+     * now process the associated messages tab
+     * @return void
+     */
+    protected function _linkMessages(Group $model): void
+    {
+
+        $message = $this->getRequest()->getPostValue(Data::MESSAGE_TAB);
+
+        $submittedMessageString = (string) $message['list'] ?: null;
+        $savedMessageString = $this->fetchHelper->getSavedMessageIdByGroupId($model->getId());
+
+        if ($submittedMessageString != $savedMessageString) {
+            $messagesByGroup = $model->getMessagesCollection();
+            $this->updateHelper->setMessagesAsNull($messagesByGroup);
+            if ($submittedMessageString) {
+                $submittedmessageId = explode('&', $submittedMessageString);
+                $messages = $this->fetchHelper->getMessagesById($submittedmessageId);
+                $this->updateHelper->setMessagesAsGroupId($messages, $model->getId());
+            }
+        }
+    }
+
+    /**
+     * now process the associated products tab
+     * @return void
+     */
+    protected function _linkProducts(Group $model)
+    {
+        $product = $this->getRequest()->getPostValue(Data::PRODUCT_TAB);
+
+        $submittedProductString = (string) $product['list'] ?: null;
+        $savedProductString = $this->fetchHelper->getSavedProductIdByGroupId($model->getId());
+
+        if ($submittedProductString != $savedProductString) {
+            return str_ireplace('&', ',', $submittedProductString);
+        }
+        
+        return null;
     }
 }

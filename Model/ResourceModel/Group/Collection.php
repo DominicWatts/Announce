@@ -200,9 +200,33 @@ class Collection extends AbstractCollection
     }
 
     /**
+     * Filter collection for product ID
+     * @param int $productId
+     * @return $this
+     */
+    public function addProductFilter($productId)
+    {
+        if (empty($productId)) {
+            return $this;
+        }
+
+        $this->addFieldToFilter(
+            GroupInterface::PRODUCT,
+            [
+                'or' => [
+                    0 => ['finset' => $productId],
+                    1 => ['is' => new \Zend_Db_Expr('null')],
+                ]
+            ],
+            'left'
+        );
+        return $this;
+    }
+
+    /**
      * Filter collection for customer email
      * @param $email
-     * @return \Xigen\Announce\Model\ResourceModel\Message\Collection
+     * @return $this
      */
     public function addCustomerEmailFilter($email)
     {
@@ -257,7 +281,6 @@ class Collection extends AbstractCollection
 
     /**
      * Return current store id
-     *
      * @return int
      */
     public function getStoreId()

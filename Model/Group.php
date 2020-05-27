@@ -14,6 +14,7 @@ use Xigen\Announce\Api\Data\GroupInterfaceFactory;
 use Xigen\Announce\Helper\Fetch;
 use Xigen\Announce\Model\ResourceModel\Group\Collection;
 use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
+use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
 
 class Group extends AbstractModel
 {
@@ -48,6 +49,11 @@ class Group extends AbstractModel
     protected $messageCollectionFactory;
 
     /**
+     * @var ProductCollectionFactory
+     */
+    protected $productCollectionFactory;
+
+    /**
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param GroupInterfaceFactory $groupDataFactory
@@ -67,6 +73,7 @@ class Group extends AbstractModel
         CollectionFactory $messageCollectionFactory,
         DateTime $dateTime,
         Fetch $fetchHelper,
+        ProductCollectionFactory $productCollectionFactory,
         array $data = []
     ) {
         $this->groupDataFactory = $groupDataFactory;
@@ -74,6 +81,7 @@ class Group extends AbstractModel
         $this->dateTime = $dateTime;
         $this->fetchHelper = $fetchHelper;
         $this->messageCollectionFactory = $messageCollectionFactory;
+        $this->productCollectionFactory = $productCollectionFactory;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -158,5 +166,15 @@ class Group extends AbstractModel
             }
         }
         return false;
+    }
+
+    /**
+     * Get messages collection
+     * @return CollectionFactory
+     */
+    public function getProductsCollection()
+    {
+        return $this->productCollectionFactory->create()
+            ->addIdFilter(explode(',', $this->getProduct()));
     }
 }

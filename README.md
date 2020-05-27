@@ -19,7 +19,8 @@ With marketing section in backend configure message groups with the following:
   - CSS class
   - Status * 
   - Store View *
-  - Category
+  - Only visible on selected category
+  - Only visible on selected product
   - Only visible to customer email
   - Only visible to customer group
   - Visible date from
@@ -51,7 +52,7 @@ I use magento registry to restrict footprint of database queries.
   - ~~Admin group message selection grid~~
   - ~~Use admin group message grid to change selection and/or sort~~
   - ~~Group visible only on selected category~~
-  - Group visible only on selected product
+  - ~~Group visible only on selected product~~
   - ~~Random message sort~~
   - ~~Message limit~~
   - ~~Mass status / mass delete~~
