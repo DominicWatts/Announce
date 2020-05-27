@@ -40,7 +40,7 @@
         </dataProvider>
     </dataSource>
     <htmlContent name="announce_group_edit_tab_view_message_content">
-        <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Tab" name="announce_group_edit_tab_message" template="Xigen_Announce::tab/message.phtml">
+        <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\MessageTab" name="announce_group_edit_tab_message" template="Xigen_Announce::tab/message.phtml">
             <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Message" name="announce_group_edit_tab_message_grid" />
             <arguments>
                 <argument name="sort_order" xsi:type="number">100</argument>
@@ -54,13 +54,31 @@
                     <argument name="reload_param_name" xsi:type="string">in_messages</argument>
                 </arguments>
             </block>
-            <block name="grid_script_js" template="Xigen_Announce::tab/message-js.phtml"/>
+            <block name="message_grid_script_js" template="Xigen_Announce::tab/message-js.phtml"/>
+        </block>
+    </htmlContent>
+    <htmlContent name="announce_group_edit_tab_view_product_content">
+        <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\ProductTab" name="announce_group_edit_tab_product" template="Xigen_Announce::tab/product.phtml">
+            <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Product" name="announce_group_edit_tab_product_grid" />
+            <arguments>
+                <argument name="sort_order" xsi:type="number">110</argument>
+                <argument name="tab_label" xsi:type="string" translate="true">Products</argument>
+            </arguments>
+            <block class="Magento\Backend\Block\Widget\Grid\Serializer" name="announce_group_edit_tab_product_grid_serializer">
+                <arguments>
+                    <argument name="grid_block" xsi:type="string">announce_group_edit_tab_product_grid</argument>
+                    <argument name="callback" xsi:type="string">_getSelectedProducts</argument>
+                    <argument name="input_element_name" xsi:type="string">product[list]</argument>
+                    <argument name="reload_param_name" xsi:type="string">in_products</argument>
+                </arguments>
+            </block>
+            <block name="product_grid_script_js" template="Xigen_Announce::tab/product-js.phtml"/>
         </block>
     </htmlContent>
     <htmlContent name="announce_group_edit_tab_view_placement_content">
         <block class="Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Placement" name="announce_group_edit_tab_placement" template="Xigen_Announce::tab/placement.phtml">
             <arguments>
-                <argument name="sort_order" xsi:type="number">110</argument>
+                <argument name="sort_order" xsi:type="number">120</argument>
                 <argument name="tab_label" xsi:type="string" translate="true">Custom Placement</argument>
             </arguments>
             <block class="Xigen\Announce\Block\Adminhtml\Help\Index" name="announce_group_edit_tab_placement_help" template="Xigen_Announce::help/index.phtml"/>

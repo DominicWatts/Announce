@@ -48,7 +48,7 @@ class Message implements OptionSourceInterface
             ]
         ];
 
-        $items = $this->getMessages();
+        $items = $this->getMessages(true);
         foreach ($items as $item) {
             $return[] = [
                 'value' => $item->getMessageId(),
@@ -69,7 +69,7 @@ class Message implements OptionSourceInterface
      */
     public function toArray()
     {
-        $items = $this->getMessages();
+        $items = $this->getMessages(true);
         $return = [];
         foreach ($items as $item) {
             $return[$item->getMessageId()] = $item->getName();

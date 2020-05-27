@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Xigen\Announce\Model\ResourceModel\Stats;
 
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Xigen\Announce\Api\Data\GroupInterface;
 use Xigen\Announce\Api\Data\MessageInterface;
-use Xigen\Announce\Api\Data\StatsInterface;
+use Xigen\Announce\Model\Group;
+use Xigen\Announce\Model\Message;
 
-class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+class Collection extends AbstractCollection
 {
-
     /**
      * @var string
      */
@@ -31,13 +33,13 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     /**
      * Set filter by message
      * @param mixed $message
-     * @return \Xigen\Announce\Model\ResourceModel\Stats\Collection
+     * @return $this
      */
     public function addMessageIdFilter($message)
     {
         if (is_array($message)) {
             $this->addFieldToFilter(MessageInterface::MESSAGE_ID, ['in' => $message]);
-        } elseif ($message instanceof \Xigen\Announce\Model\Message) {
+        } elseif ($message instanceof Message) {
             $this->addFieldToFilter(MessageInterface::MESSAGE_ID, $message->getMessageId());
         } else {
             $this->addFieldToFilter(MessageInterface::MESSAGE_ID, $message);
@@ -48,13 +50,13 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     /**
      * Set filter by group
      * @param $group
-     * @return \Xigen\Announce\Model\ResourceModel\Stats\Collection
+     * @return $this
      */
     public function addGroupIdFilter($group)
     {
         if (is_array($group)) {
             $this->addFieldToFilter(GroupInterface::GROUP_ID, ['in' => $group]);
-        } elseif ($group instanceof \Xigen\Announce\Model\Group) {
+        } elseif ($group instanceof Group) {
             $this->addFieldToFilter(GroupInterface::GROUP_ID, $group->getGroupId());
         } else {
             $this->addFieldToFilter(GroupInterface::GROUP_ID, $group);

@@ -331,4 +331,23 @@ class Group extends \Magento\Framework\Api\AbstractExtensibleObject implements G
     {
         return $this->setData(self::CATEGORY, $category);
     }
+
+    /**
+     * Get product
+     * @return string|null
+     */
+    public function getProduct()
+    {
+        return $this->_get(self::PRODUCT);
+    }
+
+    /**
+     * Set product
+     * @param string $product
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setProduct($product)
+    {
+        return $this->setData(self::PRODUCT, $product);
+    }
 }

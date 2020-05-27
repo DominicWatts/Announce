@@ -60,7 +60,8 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         }
         $items = $this->collection->getItems();
         foreach ($items as $model) {
-            $this->loadedData[$model->getId()][Data::GROUP_TAB] = $model->getData();
+            $form = $this->loadedData[$model->getId()][Data::GROUP_TAB] = $model->getData();
+            $form['category'] = explode(',', (string) $form['category']);
         }
         $data = $this->dataPersistor->get('xigen_announce_group');
 
@@ -69,6 +70,13 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
             $model->setData($data);
             $this->loadedData[$model->getId()][Data::GROUP_TAB] = $model->getData();
             $this->dataPersistor->clear('xigen_announce_group');
+        } else {
+            if ($items) {
+                if ($model->getData('category')) {
+                    $group[$model->getId()][Data::GROUP_TAB] = $form;
+                    return $group;
+                }
+            }
         }
 
         return $this->loadedData;

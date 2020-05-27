@@ -7,9 +7,9 @@ namespace Xigen\Announce\Controller\Adminhtml\Group;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 use Magento\UrlRewrite\Controller\Adminhtml\Url\Rewrite as RewriteAction;
-use Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Message;
+use Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Product;
 
-class Grid extends RewriteAction implements HttpPostActionInterface, HttpGetActionInterface
+class ProductGrid extends RewriteAction implements HttpPostActionInterface, HttpGetActionInterface
 {
     /**
      * Ajax messages grid action
@@ -19,7 +19,7 @@ class Grid extends RewriteAction implements HttpPostActionInterface, HttpGetActi
     public function execute()
     {
         $this->getResponse()->setBody(
-            $this->_view->getLayout()->createBlock(Message::class)->toHtml()
+            $this->_view->getLayout()->createBlock(Product::class)->toHtml()
         );
     }
 }

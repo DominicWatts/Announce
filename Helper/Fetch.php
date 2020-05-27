@@ -17,6 +17,7 @@ use Xigen\Announce\Api\GroupRepositoryInterface;
 use Xigen\Announce\Api\MessageRepositoryInterface;
 use Xigen\Announce\Model\ResourceModel\Group\CollectionFactory as GroupCollectionFactory;
 use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory as MessageCollectionFactory;
+use Xigen\Announce\Model\GroupFactory;
 
 class Fetch extends AbstractHelper
 {
@@ -66,17 +67,23 @@ class Fetch extends AbstractHelper
     private $messageCollectionFactory;
 
     /**
-     * Fetch constructor.
-     * @param Context $context
-     * @param GroupRepositoryInterface $groupRepositoryInterface
-     * @param MessageRepositoryInterface $messageRepositoryInterface
-     * @param SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param SortOrderFactory $sortOrderFactory
-     * @param GroupCollectionFactory $groupCollectionFactory
+     * @var GroupFactory
+     */
+    protected $groupFactory;
+
+    /**
+     * Undocumented function
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Xigen\Announce\Api\GroupRepositoryInterface $groupRepositoryInterface
+     * @param \Xigen\Announce\Api\MessageRepositoryInterface $messageRepositoryInterface
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param \Magento\Framework\Api\SortOrderFactory $sortOrderFactory
+     * @param \Xigen\Announce\Model\ResourceModel\Group\CollectionFactory $groupCollectionFactory
      * @param Customer $customerHelper
-     * @param Registry $registry
-     * @param LoggerInterface $logger
-     * @param MessageCollectionFactory $messageCollectionFactory
+     * @param \Magento\Framework\Registry $registry
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Xigen\Announce\Model\ResourceModel\Message\CollectionFactory $messageCollectionFactory
+     * @param GroupFactory $groupFactory
      */
     public function __construct(
         Context $context,
@@ -88,7 +95,8 @@ class Fetch extends AbstractHelper
         Customer $customerHelper,
         Registry $registry,
         LoggerInterface $logger,
-        MessageCollectionFactory $messageCollectionFactory
+        MessageCollectionFactory $messageCollectionFactory,
+        GroupFactory $groupFactory
     ) {
         $this->groupRepositoryInterface = $groupRepositoryInterface;
         $this->messageRepositoryInterface = $messageRepositoryInterface;
@@ -99,6 +107,7 @@ class Fetch extends AbstractHelper
         $this->registry = $registry;
         $this->logger = $logger;
         $this->messageCollectionFactory = $messageCollectionFactory;
+        $this->groupFactory = $groupFactory;
         parent::__construct($context);
     }
 
@@ -168,27 +177,16 @@ class Fetch extends AbstractHelper
     /**
      * Get messages - sort by name
      * @param bool $enabledOnly
-     * @param int|GroupInterface $group
      * @return MessageInterface[]
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getMessages($enabledOnly = true, $group = false)
+    public function getMessages($enabledOnly = true)
     {
         if ($enabledOnly) {
             $this->searchCriteriaBuilder->addFilter(MessageInterface::STATUS, [Data::ENABLED], 'eq');
         }
 
-        $groupId = null;
-        if (is_int($group)) {
-            $groupId = $group;
-        } elseif ($group instanceof GroupInterface) {
-            $groupId = $group->getGroupId();
-        }
-
-        if ($groupId) {
-            $this->searchCriteriaBuilder->addFilter(MessageInterface::GROUP_ID, [$groupId], 'eq');
-        }
         $sortOrder = $this->createSortOrder(MessageInterface::NAME);
         $this->searchCriteriaBuilder->setSortOrders([$sortOrder]);
         $searchCriteria = $this->searchCriteriaBuilder->create();
@@ -197,15 +195,19 @@ class Fetch extends AbstractHelper
 
     /**
      * Get groups by group ID
-     * @param array $groupId
+     * @param array|int $groupId
      * @return GroupInterface[]
      * @throws \Magento\Framework\Exception\InputException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function getGroupsById($groupId = [])
+    public function getGroupsById($groupId = null)
     {
-        if (count($groupId)) {
-            $this->searchCriteriaBuilder->addFilter(GroupInterface::GROUP_ID, $groupId, 'in');
+        if (!empty($groupId)) {
+            if (is_int($groupId)) {
+                $this->searchCriteriaBuilder->addFilter(GroupInterface::GROUP_ID, $groupId, 'eq');
+            } elseif (is_array($groupId)) {
+                $this->searchCriteriaBuilder->addFilter(GroupInterface::GROUP_ID, $groupId, 'in');
+            }
             $sortBySort = $this->createSortOrder(GroupInterface::SORT);
             $sortByName = $this->createSortOrder(GroupInterface::NAME);
             $this->searchCriteriaBuilder->setSortOrders([$sortBySort, $sortByName]);
@@ -247,6 +249,13 @@ class Fetch extends AbstractHelper
             $collection->addFieldToFilter(GroupInterface::CATEGORY, ['null' => true]);
         }
 
+        $currentProduct = $this->registry->registry('current_product');
+        if ($currentProduct && $currentProduct->getId()) {
+            $collection->addProductFilter($currentProduct->getId());
+        } else {
+            $collection->addFieldToFilter(GroupInterface::PRODUCT, ['null' => true]);
+        }
+
         $collection->setOrder(GroupInterface::SORT, SortOrder::SORT_ASC);
 
         if ($collection->getSize() > 0) {
@@ -279,36 +288,6 @@ class Fetch extends AbstractHelper
             }
         }
         return [];
-    }
-
-    /**
-     * Get message ID by group ID
-     * @param array $positionCode
-     * @return array
-     */
-    public function getMessageIdByGroupId($groupId = null)
-    {
-        if ($groupId) {
-            $collection = $this->messageCollectionFactory
-                ->create()
-                ->addFieldToFilter(MessageInterface::GROUP_ID, ['eq' => $groupId])
-                ->setOrder(MessageInterface::MESSAGE_ID, SortOrder::SORT_ASC);
-            if ($collection->getSize() > 0) {
-                return $collection->getAllIds();
-            }
-        }
-        return [];
-    }
-
-    /**
-     * Build message comparison string by group ID
-     * @param int $groupId
-     * @return string
-     */
-    public function getSavedMessageIdByGroupId($groupId = null)
-    {
-        $array = $this->getMessageIdByGroupId($groupId);
-        return (string) implode('&', $array);
     }
 
     /**
@@ -377,5 +356,68 @@ class Fetch extends AbstractHelper
             ->create()
             ->setField($attributeCode)
             ->setDirection($direction);
+    }
+
+    /**
+     * Get message ID by group ID
+     * @param array $positionCode
+     * @return array
+     */
+    public function getMessageIdByGroupId($groupId = null)
+    {
+        if ($groupId) {
+            $group = $this->groupFactory->create()->load($groupId);
+            if ($group && $group->getId()) {
+                $collection = $group->getMessagesCollection();
+                if ($collection->getSize() > 0) {
+                    return $collection->getAllIds();
+                }
+            }
+        }
+        return [];
+    }
+
+    /**
+     * Build message comparison string by group ID
+     * @param int $groupId
+     * @return string
+     */
+    public function getSavedMessageIdByGroupId($groupId = null): string
+    {
+        return $this->_convertToString($this->getMessageIdByGroupId($groupId));
+    }
+
+    /**
+     * Get product ID by group ID
+     * @param array $positionCode
+     * @return array
+     */
+    public function getProductIdByGroupId($groupId = null)
+    {
+        if ($groupId) {
+            $group = $this->groupFactory->create()->load($groupId);
+            if ($group && $group->getId()) {
+                $collection = $group->getProductsCollection();
+                if ($collection->getSize() > 0) {
+                    return $collection->getAllIds();
+                }
+            }
+        }
+        return [];
+    }
+
+    /**
+     * Build product comparison string by group ID
+     * @param int $groupId
+     * @return string
+     */
+    public function getSavedProductIdByGroupId($groupId = null): string
+    {
+        return $this->_convertToString($this->getProductIdByGroupId($groupId));
+    }
+
+    protected function _convertToString($array = []): string
+    {
+        return implode('&', $array);
     }
 }

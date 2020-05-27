@@ -13,6 +13,7 @@ use Xigen\Announce\Api\Data\GroupInterface;
 use Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Grid\Filter\Status as FilterStatus;
 use Xigen\Announce\Block\Adminhtml\Group\Edit\Tab\Grid\Renderer\Status as RendererStatus;
 use Xigen\Announce\Model\ResourceModel\Message\CollectionFactory;
+use Xigen\Announce\Model\GroupFactory;
 
 class Message extends ExtendedGrid implements TabInterface
 {
@@ -27,19 +28,26 @@ class Message extends ExtendedGrid implements TabInterface
     protected $isAjaxLoaded = true;
 
     /**
-     * @var \Xigen\Announce\Model\ResourceModel\Message\CollectionFactory
+     * @var CollectionFactory
      */
     protected $messageCollectionFactory;
+
+    /**
+     * @var GroupFactory
+     */
+    protected $groupFactory;
 
     public function __construct(
         Context $context,
         Data $backendHelper,
         CollectionFactory $messageCollectionFactory,
         Registry $coreRegistry,
+        GroupFactory $groupFactory,
         array $data = []
     ) {
         $this->messageCollectionFactory = $messageCollectionFactory;
         $this->coreRegistry = $coreRegistry;
+        $this->groupFactory = $groupFactory;
         parent::__construct($context, $backendHelper, $data);
     }
 
@@ -226,9 +234,9 @@ class Message extends ExtendedGrid implements TabInterface
         if ($selected = $this->coreRegistry->registry('xigen_announce_group')) {
             $collection = $selected->getMessagesCollection();
         } elseif ($groupId = $this->getRequest()->getParam('group_id')) {
-            $collection = $this->messageCollectionFactory->create()
-                ->addFieldToSelect("*")
-                ->addFieldToFilter(GroupInterface::GROUP_ID, ['eq' => $groupId]);
+            if ($selected = $this->groupFactory->create()->load($groupId)) {
+                $collection = $selected->getMessagesCollection();
+            }
         }
 
         foreach ($collection as $item) {
@@ -243,6 +251,6 @@ class Message extends ExtendedGrid implements TabInterface
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', ['_current' => true]);
+        return $this->getUrl('*/*/messageGrid', ['_current' => true]);
     }
 }

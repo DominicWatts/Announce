@@ -11,6 +11,7 @@
         <column comment="Status" default="0" name="status" nullable="false" xsi:type="smallint" />
         <column comment="Store ID" length="255" name="store_id" nullable="true" xsi:type="varchar"/>
         <column comment="Category" length="2048" name="category" nullable="true" xsi:type="text"/>
+        <column comment="Product" length="2048" name="product" nullable="true" xsi:type="text"/>
         <column comment="Email" length="255" name="email" nullable="true" xsi:type="varchar" />
         <column comment="Customer Group ID" length="255" default="1" name="customer_group_id" nullable="true" xsi:type="varchar" />
         <column comment="Start Date" name="date_from" xsi:type="date" />

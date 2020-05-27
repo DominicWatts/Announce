@@ -12,7 +12,7 @@ use Magento\Ui\Component\Layout\Tabs\TabInterface;
 /**
  * Placement instructions form block
  */
-class Tab extends Template implements TabInterface
+class MessageTab extends Template implements TabInterface
 {
     /**
      * @var \Magento\Framework\Registry

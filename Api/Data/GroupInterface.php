@@ -22,6 +22,7 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const DATE_TO = 'date_to';
     const LIMIT = 'limit';
     const CATEGORY = 'category';
+    const PRODUCT = 'product';
 
     /**
      * Get group_id
@@ -245,4 +246,17 @@ interface GroupInterface extends \Magento\Framework\Api\ExtensibleDataInterface
      * @return \Xigen\Announce\Api\Data\GroupInterface
      */
     public function setCategory($category);
+
+    /**
+     * Get product
+     * @return string|null
+     */
+    public function getProduct();
+
+    /**
+     * Set product
+     * @param string $product
+     * @return \Xigen\Announce\Api\Data\GroupInterface
+     */
+    public function setProduct($product);
 }
